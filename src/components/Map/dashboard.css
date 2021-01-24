@@ -1,0 +1,70 @@
+.db_container {
+  overflow:hidden;
+}
+
+.db_box {
+  white-space:nowrap;
+}
+
+.db_item {
+  margin-left: 20px;
+  width:30%;
+  display:inline-block;
+}
+
+@media (max-width: 500px) {
+  .db_item_map {
+    margin-left: 20px;
+    margin-right: 20px;
+    width:28%;
+    display:inline-block;
+  }
+}
+
+@media (max-width: 780px) {
+  .db_item_map {
+    margin-left: 20px;
+    margin-right: 20px;
+    width:28%;
+    display:inline-block;
+  }
+}
+
+@media (max-width: 900px) {
+  .db_item_map {
+    margin-left: 20px;
+    margin-right: 20px;
+    width:40%;
+    display:inline-block;
+  }
+}
+
+@media (max-width: 1200px) {
+  .db_item_map {
+    margin-left: 20px;
+    margin-right: 20px;
+    width:42%;
+    display:inline-block;
+  }
+}
+
+@media (max-width: 1800px) {
+  .db_item_map {
+    margin-left: 20px;
+    margin-right: 20px;
+    width:58%;
+    display:inline-block;
+  }
+}
+@media (max-width: 2400px) {
+  .db_item {
+    margin-left: 50px;
+  }
+
+  .db_item_map {
+    margin-left: 20px;
+    margin-right: 20px;
+    width:60%;
+    display:inline-block;
+  }
+}
