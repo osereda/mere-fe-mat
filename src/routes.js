@@ -29,7 +29,8 @@ const Routes = [
     path: "/st",
     name: "Station",
     icon: EvStationIcon,
-    component: UserProfile,
+    component: TableList,
+    //component: UserProfile,
     layout: "/admin"
   },
   {
