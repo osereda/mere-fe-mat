@@ -11,6 +11,7 @@ import LocalOffer from "@material-ui/icons/LocalOffer";
 import Update from "@material-ui/icons/Update";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import AccessTime from "@material-ui/icons/AccessTime";
+import LanguageIcon from '@material-ui/icons/Language';
 
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
@@ -214,10 +215,11 @@ export default function Dashboard() {
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card cardMap>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
-                <Euro />
+            <CardHeader color="success" stats icon>
+              <CardIcon className={classes.cardIconMaps} color="success">
+                <LanguageIcon />
               </CardIcon>
+              <h3 className={classes.cardTitleMaps}>Popular Station</h3>
             </CardHeader>
             <Map geodata={geodata}/>
           </Card>
@@ -237,7 +239,7 @@ export default function Dashboard() {
               />
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>Daily Charges</h4>
+              <h4 className={classes.cardTitle}>Energy consumption during the period</h4>
               <p className={classes.cardCategory}>
                 <span className={classes.successText}>
                   <ArrowUpward className={classes.upArrowCardCategory} /> 55%
@@ -265,7 +267,7 @@ export default function Dashboard() {
               />
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>Email Subscriptions</h4>
+              <h4 className={classes.cardTitle}>Energy consumption during the period</h4>
               <p className={classes.cardCategory}>Last Campaign Performance</p>
             </CardBody>
             <CardFooter chart>
@@ -287,7 +289,7 @@ export default function Dashboard() {
               />
             </CardHeader>
             <CardBody>
-              <h4 className={classes.cardTitle}>Completed Tasks</h4>
+              <h4 className={classes.cardTitle}>Energy consumption during the period</h4>
               <p className={classes.cardCategory}>Last Campaign Performance</p>
             </CardBody>
             <CardFooter chart>

@@ -63,6 +63,36 @@ const dashboardStyle = {
       lineHeight: "1"
     }
   },
+  cardTitleMaps: {
+    color: grayColor[2],
+    textAlign: "center",
+    marginTop: "20px !important",
+    paddingTop: "20px !important",
+    minHeight: "auto",
+    fontWeight: "300",
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    marginBottom: "3px",
+    textDecoration: "none",
+    "& small": {
+      color: grayColor[1],
+      fontWeight: "400",
+      lineHeight: "1"
+    }
+  },
+  cardIconMaps: {
+    // maxWidth: "50px",
+    // maxHeight: "50px",
+    textAlign: "center",
+    minHeight: "auto",
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    marginBottom: "3px",
+    textDecoration: "none",
+    "& small": {
+      color: grayColor[1],
+      fontWeight: "400",
+      lineHeight: "1"
+    }
+  },
   cardTitleWhite: {
     color: whiteColor,
     marginTop: "0px",

@@ -34,7 +34,6 @@ export default function MapCenterMark(geodata) {
         <div className="db_container">
             <div className="db_box">
                 <div className="db_item">
-                    <p>Popular Station</p>
                     {geoposition.map((item) => {
                         return (
                             <>

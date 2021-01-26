@@ -8,7 +8,7 @@
 
 .db_item {
   position: absolute;
-  margin-left: 20px;
+  margin-left: 16px;
   width:35%;
   display:inline-block;
 }
@@ -18,6 +18,10 @@
 }
 
 @media (max-width: 500px) {
+  .db_item {
+    margin-left: 16px;
+    width:35%;
+  }
   .db_item_map {
     position: relative;
     left: 110px;
@@ -29,6 +33,10 @@
 }
 
 @media (max-width: 780px) {
+  .db_item {
+    margin-left: 16px;
+    width:35%;
+  }
   .db_item_map {
     position: relative;
     left: 35%;
@@ -40,6 +48,10 @@
 }
 
 @media (max-width: 900px) {
+  .db_item {
+    margin-left: 16px;
+    width:35%;
+  }
   .db_item_map {
     position: relative;
     left: 110px;
@@ -73,7 +85,7 @@
 }
 @media (max-width: 2400px) {
   .db_item {
-    margin-left: 50px;
+    margin-left: 16px;
   }
 
   .db_item_map {
@@ -81,7 +93,7 @@
     left: 40%;
     margin-left: 20px;
     margin-right: 20px;
-    width:55%;
+    width:56%;
     display:inline-block;
   }
 }

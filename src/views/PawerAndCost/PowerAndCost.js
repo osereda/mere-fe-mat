@@ -1,43 +1,65 @@
-import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
+import React, { Component } from 'react';
 
-const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'firstName', headerName: 'First name', width: 130 },
-    { field: 'lastName', headerName: 'Last name', width: 130 },
-    {
-        field: 'age',
-        headerName: 'Age',
-        type: 'number',
-        width: 90,
-    },
-    {
-        field: 'fullName',
-        headerName: 'Full name',
-        description: 'This column has a value getter and is not sortable.',
-        sortable: false,
-        width: 160,
-        valueGetter: (params) =>
-            `${params.getValue('firstName') || ''} ${params.getValue('lastName') || ''}`,
-    },
-];
+export default class PowerAndCost extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            count: 0,
+            columns: [
+                { field: 'sc_id', headerName: 'ID', width: 70 },
+                { field: 'sc_type', headerName: 'Type', width: 130 },
+                { field: 'sc_pow', headerName: 'Charge level, %', width: 130 },
+                { field: 'sc_status', headerName: 'Status',type: 'number', width: 90 },
+                { field: 'sc_perm', headerName: 'Permission',type: 'number', width: 90 },
+                { field: 'sc_location', headerName: 'Station location',
+                    description: 'address Station location',
+                    sortable: false,
+                    width: 160
+                    // valueGetter: (params) =>
+                    //     `${params.getValue('firstName') || ''} ${params.getValue('lastName') || ''}`,
+                },
+            ],
+            rows: [{ id: 1, sc_type: 'Snow', sc_pow: 'Jon', age: 35 }]
+        };
 
-const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
+        this.setScooterData = this.setScooterData.bind(this);
+        this.getScooterData = this.getScooterData.bind(this);
+    }
 
-export default function DataTable() {
-    return (
-        <div style={{ height: 400, width: '100%' }}>
-            <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
-        </div>
-    );
+    getScooterData() {
+        fetch('http://localhost:5000/api/scooter/all')
+            .then(response => {
+                if (!response.ok) {
+                    console.log('error');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                this.setScooterData(data);
+            })
+            .then( setTimeout(this.getScooterData, 1000))
+    }
+
+    setScooterData(data) {
+        data.forEach((item, i) => {
+            item.id = i;
+        })
+        this.setState({ rows: data})
+    }
+
+    componentDidMount() {
+        this.getScooterData();
+    }
+
+    render() {
+        return(
+            <div>
+                <p>cdcfdc</p>
+                <div style={{ height: 400, width: '100%' }}>
+                    <DataGrid rows={this.state.rows} columns={this.state.columns} pageSize={5} checkboxSelection />
+                </div>
+            </div>
+        )
+    }
 }
