@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import ChartistGraph from "react-chartist";
 import { makeStyles } from "@material-ui/core/styles";
 import Warning from "@material-ui/icons/EvStation";
@@ -31,11 +31,104 @@ import {
 } from "variables/charts.js";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
+import axios from "axios";
 
 const useStyles = makeStyles(styles);
 
+let scooterQty = 7;
+
+function getData() {
+  fetch('http://localhost:5000/api/scooter/all')
+      .then(response => {
+        if (!response.ok) {
+          console.log('error');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log( data);
+      })
+      .then(
+          setTimeout(getData(), 1000)
+      )
+  console.log("scooterQty--->  "+scooterQty );
+}
+
 export default function Dashboard() {
   const classes = useStyles();
+
+
+  const [scooterQty, setScooterQty] = useState(0);
+  const [stationQty, setStationQty] = useState(0);
+  const [slotQty, setSlotQty] = useState(0);
+  const [availableQty, setAvailableQty] = useState(0);
+  // const [data, setData] = useState({ hits: [] });
+
+  const  countParameterStation = (data) => {
+
+    let countStation = 0;
+    let countSlot = 0;
+    let countAva = 0;
+    data.forEach((item) => {
+      setStationQty(++countStation);
+      //item.geodata ? this.geodata.push(item.geodata + ',' + item.location) : this.geodata.push([51, 31]);
+      if(item.arr_slots.length > 0) {
+        setSlotQty(countSlot += item.arr_slots.length);
+      }
+      item.arr_slots.forEach(slot => {
+        if(slot.slot_status === 0) {
+          setAvailableQty(++countAva)
+        }
+      })
+    });
+  };
+
+
+  useEffect(() => {
+
+
+    //getData();
+    const fetchData1 = async () => {
+      const result = await axios(
+          'http://localhost:5000/api/scooter/all',
+      );
+      //setData(result.data);
+    };
+
+    // const fetchData = async () => {
+      fetch('http://localhost:5000/api/scooter/all')
+          .then(response => {
+            if (!response.ok) {
+              console.log('error');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            setScooterQty(data.length);
+            console.log('XXXX');
+          })
+
+
+    fetch('http://localhost:5000/api/station/all')
+        .then(response => {
+          if (!response.ok) {
+            console.log('error');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if(data.length > 0) {
+            countParameterStation(data)
+          }
+        })
+
+    // fetchData();
+    console.log("scooterQty--->  "+scooterQty );
+    console.log("stationQty--->  "+stationQty );
+  },[]);
+
+
+
   return (
     <div>
       <GridContainer>
@@ -47,7 +140,7 @@ export default function Dashboard() {
               </CardIcon>
               <p className={classes.cardCategory}>Stations</p>
               <h3 className={classes.cardTitle}>
-                1 <small></small>
+                {stationQty}<small></small>
               </h3>
             </CardHeader>
             <CardFooter stats>
@@ -56,7 +149,7 @@ export default function Dashboard() {
                   <Warning />
                 </Danger>
                 <a href="#pablo" onClick={e => e.preventDefault()}>
-                  ONLINE
+                  {stationQty} ONLINE
                 </a>
               </div>
             </CardFooter>
@@ -69,12 +162,12 @@ export default function Dashboard() {
                 <Slot />
               </CardIcon>
               <p className={classes.cardCategory}>Slots</p>
-              <h3 className={classes.cardTitle}>12</h3>
+              <h3 className={classes.cardTitle}>{slotQty}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <DateRange />
-                AVAILABLE
+                {availableQty} AVAILABLE
               </div>
             </CardFooter>
           </Card>
@@ -86,12 +179,12 @@ export default function Dashboard() {
                 <Scooter/>
               </CardIcon>
               <p className={classes.cardCategory}>Scooters</p>
-              <h3 className={classes.cardTitle}>10</h3>
+              <h3 className={classes.cardTitle}>{scooterQty}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <LocalOffer />
-                ON CHARGE
+                {slotQty - availableQty} ON CHARGE
               </div>
             </CardFooter>
           </Card>

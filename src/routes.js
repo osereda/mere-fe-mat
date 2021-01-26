@@ -15,7 +15,9 @@ import Typography from "views/Typography/Typography.js";
 import Icons from "views/Icons/Icons.js";
 import NotificationsPage from "views/Notifications/Notifications.js";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
-
+import ScootersList from "views/Scooters/ScootersList";
+import PowerAndCost from "views/PawerAndCost/PowerAndCost";
+import StationRating from "views/StationRating/StationRating";
 
 const Routes = [
   {
@@ -37,21 +39,21 @@ const Routes = [
     path: "/sc",
     name: "Scooter",
     icon: TwoWheelerIcon,
-    component: TableList,
+    component: ScootersList,
     layout: "/admin"
   },
   {
     path: "/pac",
     name: "Power and Cost",
     icon: EuroIcon,
-    component: Typography,
+    component: PowerAndCost,
     layout: "/admin"
   },
   {
     path: "/sr",
     name: "Station Rating",
     icon: TrendingUpIcon,
-    component: Icons,
+    component: StationRating,
     layout: "/admin"
   },
   {
