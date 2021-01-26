@@ -21,7 +21,7 @@ function SetViewOnClick({ coords }) {
     return null;
 }
 
-function MapComp({ coords }) {
+function MapComponent({ coords }) {
     return (
         <MapContainer
             classsName="map"
@@ -47,4 +47,4 @@ function MapComp({ coords }) {
     );
 }
 
-export default MapComp;
+export default MapComponent;

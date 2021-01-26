@@ -62,6 +62,7 @@ export default function Dashboard() {
   const [stationQty, setStationQty] = useState(0);
   const [slotQty, setSlotQty] = useState(0);
   const [availableQty, setAvailableQty] = useState(0);
+  const [geodata, setGeodata] = useState([]);
   // const [data, setData] = useState({ hits: [] });
 
   const  countParameterStation = (data) => {
@@ -69,9 +70,11 @@ export default function Dashboard() {
     let countStation = 0;
     let countSlot = 0;
     let countAva = 0;
+    let geodata = [];
     data.forEach((item) => {
       setStationQty(++countStation);
-      //item.geodata ? this.geodata.push(item.geodata + ',' + item.location) : this.geodata.push([51, 31]);
+      item.geodata ? geodata.push(item.geodata + ',' + item.location) : geodata.push([51, 31]);
+      setGeodata(geodata);
       if(item.arr_slots.length > 0) {
         setSlotQty(countSlot += item.arr_slots.length);
       }
@@ -211,7 +214,12 @@ export default function Dashboard() {
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card cardMap>
-            <Map/>
+            <CardHeader color="info" stats icon>
+              <CardIcon color="info">
+                <Euro />
+              </CardIcon>
+            </CardHeader>
+            <Map geodata={geodata}/>
           </Card>
         </GridItem>
       </GridContainer>
