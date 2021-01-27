@@ -52,7 +52,6 @@ function getData() {
       .then(
           setTimeout(getData(), 1000)
       )
-  console.log("scooterQty--->  "+scooterQty );
 }
 
 export default function Dashboard() {
@@ -89,28 +88,24 @@ export default function Dashboard() {
 
 
   useEffect(() => {
-
-
-    //getData();
     const fetchData1 = async () => {
       const result = await axios(
           'http://localhost:5000/api/scooter/all',
       );
-      //setData(result.data);
     };
 
-    // const fetchData = async () => {
-      fetch('http://localhost:5000/api/scooter/all')
-          .then(response => {
-            if (!response.ok) {
-              console.log('error');
-            }
-            return response.json();
-          })
-          .then((data) => {
-            setScooterQty(data.length);
-            console.log('XXXX');
-          })
+
+    fetch('http://localhost:5000/api/scooter/all')
+        .then(response => {
+          if (!response.ok) {
+            console.log('error');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setScooterQty(data.length);
+          console.log('XXXX');
+        })
 
 
     fetch('http://localhost:5000/api/station/all')
@@ -125,10 +120,6 @@ export default function Dashboard() {
             countParameterStation(data)
           }
         })
-
-    // fetchData();
-    console.log("scooterQty--->  "+scooterQty );
-    console.log("stationQty--->  "+stationQty );
   },[]);
 
 

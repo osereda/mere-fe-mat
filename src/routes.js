@@ -15,7 +15,7 @@ import Typography from "views/Typography/Typography.js";
 import Icons from "views/Icons/Icons.js";
 import NotificationsPage from "views/Notifications/Notifications.js";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
-import ScootersList from "views/Scooters/ScootersList";
+import Scooters from "views/Scooters/Scooters";
 import PowerAndCost from "views/PawerAndCost/PowerAndCost";
 import StationRating from "views/StationRating/StationRating";
 import BillingAndHistory from "views/BillingAndHistory/BillingAndHistory";
@@ -41,7 +41,7 @@ const Routes = [
     path: "/sc",
     name: "Scooter",
     icon: TwoWheelerIcon,
-    component: ScootersList,
+    component: Scooters,
     layout: "/admin"
   },
   {
