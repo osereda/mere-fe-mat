@@ -1,21 +1,27 @@
 import { DataGrid } from '@material-ui/data-grid';
 import React, { Component } from 'react';
+import GridItem from "../../components/Grid/GridItem";
+import Card from "../../components/Card/Card";
+import CardHeader from "../../components/Card/CardHeader";
+import CardBody from "../../components/Card/CardBody";
+import GridContainer from "../../components/Grid/GridContainer";
+import './scooter.css';
 
-export default class Scooter extends React.Component {
+export default class ScootersList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             count: 0,
             columns: [
-                { field: 'sc_id', headerName: 'ID', width: 70 },
-                { field: 'sc_type', headerName: 'Type', width: 130 },
-                { field: 'sc_pow', headerName: 'Charge level, %', width: 130 },
-                { field: 'sc_status', headerName: 'Status',type: 'number', width: 90 },
-                { field: 'sc_perm', headerName: 'Permission',type: 'number', width: 90 },
+                { field: 'sc_id', headerName: 'ID', width: 100 },
+                { field: 'sc_type', headerName: 'Type', width: 150 },
+                { field: 'sc_pow', headerName: 'Charge level, %', width: 150 },
+                { field: 'sc_status', headerName: 'Status',type: 'number', width: 150 },
+                { field: 'sc_perm', headerName: 'Permission',type: 'number', width: 150},
                 { field: 'sc_location', headerName: 'Station location',
                     description: 'address Station location',
                     sortable: false,
-                    width: 160
+                    width: 180
                     // valueGetter: (params) =>
                     //     `${params.getValue('firstName') || ''} ${params.getValue('lastName') || ''}`,
                 },
@@ -54,11 +60,23 @@ export default class Scooter extends React.Component {
 
     render() {
         return(
-            <div>
-                <div style={{ height: 400, width: '100%' }}>
-                    <DataGrid rows={this.state.rows} columns={this.state.columns} pageSize={5} checkboxSelection />
-                </div>
-            </div>
+            <GridContainer>
+                <GridItem xs={12} sm={12} md={12}>
+                    <Card>
+                        <CardHeader color="primary">
+                            <h4 className="cardTitleWhite">Scooters</h4>
+                            <p className="cardCategoryWhite">
+                                Scooters Information
+                            </p>
+                        </CardHeader>
+                        <CardBody>
+                            <div style={{ height: 460, width: '100%' }}>
+                                <DataGrid rows={this.state.rows} columns={this.state.columns} pageSize={10} checkboxSelection />
+                            </div>
+                        </CardBody>
+                    </Card>
+                </GridItem>
+            </GridContainer>
         )
     }
 }

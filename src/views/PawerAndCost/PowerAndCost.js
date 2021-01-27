@@ -1,5 +1,11 @@
 import { DataGrid } from '@material-ui/data-grid';
 import React, { Component } from 'react';
+import GridItem from "../../components/Grid/GridItem";
+import Card from "../../components/Card/Card";
+import CardHeader from "../../components/Card/CardHeader";
+import CardBody from "../../components/Card/CardBody";
+import GridContainer from "../../components/Grid/GridContainer";
+import './pac.css';
 
 export default class PowerAndCost extends React.Component {
     constructor(props) {
@@ -54,12 +60,23 @@ export default class PowerAndCost extends React.Component {
 
     render() {
         return(
-            <div>
-                <p>cdcfdc</p>
-                <div style={{ height: 400, width: '100%' }}>
-                    <DataGrid rows={this.state.rows} columns={this.state.columns} pageSize={5} checkboxSelection />
-                </div>
-            </div>
+        <GridContainer>
+            <GridItem xs={12} sm={12} md={12}>
+                <Card>
+                    <CardHeader color="primary">
+                        <h4 className="cardTitleWhite">Billing & History</h4>
+                        <p className="cardCategoryWhite">
+                            Information billing and history
+                        </p>
+                    </CardHeader>
+                    <CardBody>
+                        <div style={{ height: 400, width: '100%' }}>
+                            <DataGrid rows={this.state.rows} columns={this.state.columns} pageSize={5} checkboxSelection />
+                        </div>
+                    </CardBody>
+                </Card>
+            </GridItem>
+        </GridContainer>
         )
     }
 }

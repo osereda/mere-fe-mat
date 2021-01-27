@@ -18,6 +18,8 @@ import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 import ScootersList from "views/Scooters/ScootersList";
 import PowerAndCost from "views/PawerAndCost/PowerAndCost";
 import StationRating from "views/StationRating/StationRating";
+import BillingAndHistory from "views/BillingAndHistory/BillingAndHistory";
+import Station from "views/Station/Station";
 
 const Routes = [
   {
@@ -31,7 +33,7 @@ const Routes = [
     path: "/st",
     name: "Station",
     icon: EvStationIcon,
-    component: TableList,
+    component: Station,
     //component: UserProfile,
     layout: "/admin"
   },
@@ -60,7 +62,7 @@ const Routes = [
     path: "/bah",
     name: "Billing & History",
     icon: HistoryIcon,
-    component: Icons,
+    component: BillingAndHistory,
     layout: "/admin"
   },
   {
