@@ -1,0 +1,11 @@
+.tableHeader {
+    color: green;
+}
+
+.tableBody {
+    background-color: #00a5bb;
+}
+
+.addTableBody {
+    background-color: lightgray;
+}

@@ -14,6 +14,14 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import './station.css';
+import GridItem from "../../components/Grid/GridItem";
+import Card from "../../components/Card/Card";
+import CardHeader from "../../components/Card/CardHeader";
+import CardIcon from "../../components/Card/CardIcon";
+import Scooter from "@material-ui/icons/TwoWheeler";
+import CardBody from "../../components/Card/CardBody";
+import GridContainer from "../../components/Grid/GridContainer";
 
 const useRowStyles = makeStyles({
     root: {
@@ -45,29 +53,29 @@ function Row(props) {
                 <TableCell align="center">{row.location}</TableCell>
             </TableRow>
             <TableRow>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                <TableCell className="addTableBody" style={{ paddingBottom: 1, paddingTop: 0 }} colSpan={6}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box margin={1}>
-                            <Typography variant="h6" gutterBottom component="div">
+                            <Typography className="tableHeader" variant="h6" gutterBottom component="div">
                                 Slots
                                 <hr/>
                             </Typography>
                             <Table size="small" aria-label="purchases">
-                                <TableHead>
-                                    <TableRow>
+                                <TableHead className="tableHeader">
+                                    <TableRow style={{ textColor: "red"}} >
                                         <TableCell>Pad ID</TableCell>
                                         <TableCell>Status</TableCell>
                                         <TableCell align="right">Info</TableCell>
                                         <TableCell align="right">Charge level, %</TableCell>
                                     </TableRow>
                                 </TableHead>
-                                <TableBody>
+                                <TableBody className="tableBody" >
                                     {row.arr_slots.map((slotRow) => (
                                         <TableRow key={slotRow.slot_id}>
                                             <TableCell component="th" scope="row">
                                                 {slotRow.slot_id}
                                             </TableCell>
-                                            <TableCell>{slotRow.slot_info}</TableCell>
+                                            <TableCell>{slotRow.slot_status}</TableCell>
                                             <TableCell align="right">{slotRow.slot_status}</TableCell>
                                             <TableCell align="right">{slotRow.slot_power}</TableCell>
                                         </TableRow>
@@ -109,14 +117,7 @@ export default class Station extends React.Component {
         super(props);
         this.state = {
             count: 0,
-            rows2:[],
-            rows:[{ n: 100, st_id: 1000, st_status:"ok", location: "21212", st_counts_slot: 77,
-                    arr_slots: [
-                        { slot_id: '2020-01-05', slot_power: '11091700', slot_status: "ok" , slot_info: 3 },
-                        { slot_id: '2020-01-02', slot_power: '3333333', slot_status: "jr" , slot_info: 3 }
-                    ]
-            }
-            ]
+            rows:[ ]
         }
 
         this.GetStationData = this.GetStationData.bind(this);
@@ -156,25 +157,42 @@ export default class Station extends React.Component {
 
     render() {
         return (
-            <TableContainer component={Paper}>
-                <Table aria-label="collapsible table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell/>
-                            <TableCell>№</TableCell>
-                            <TableCell align="center">Station ID</TableCell>
-                            <TableCell align="center">Status</TableCell>
-                            <TableCell align="center">Count of slots</TableCell>
-                            <TableCell align="center">Location</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {this.state.rows.map((row) => (
-                            <Row key={row.n} row={row}/>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            <GridContainer>
+                <GridItem xs={12} sm={12} md={12}>
+                    <Card>
+                        <CardHeader color="primary">
+                            {/*<CardIcon color="success">*/}
+                            {/*    <Scooter/>*/}
+                            {/*</CardIcon>*/}
+                            <h4 className="cardTitleWhite">Stations</h4>
+                            <p className="cardCategoryWhite">
+                                Stations Information
+                            </p>
+                        </CardHeader>
+                        <CardBody>
+                            <TableContainer component={Paper}>
+                                <Table aria-label="collapsible table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell/>
+                                            <TableCell>№</TableCell>
+                                            <TableCell align="center">Station ID</TableCell>
+                                            <TableCell align="center">Status</TableCell>
+                                            <TableCell align="center">Count of slots</TableCell>
+                                            <TableCell align="center">Location</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {this.state.rows.map((row) => (
+                                            <Row key={row.n} row={row}/>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </CardBody>
+                    </Card>
+                </GridItem>
+            </GridContainer>
         );
     }
 }
