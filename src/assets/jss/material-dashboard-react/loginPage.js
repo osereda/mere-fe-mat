@@ -4,7 +4,7 @@ import { container } from "./m-kit-login";
 const signupPageStyle = {
   container: {
     ...container,
-    zIndex: "2",
+    zIndex: "100",
     position: "relative",
     paddingTop: "20vh",
     color: "#FFFFFF",
