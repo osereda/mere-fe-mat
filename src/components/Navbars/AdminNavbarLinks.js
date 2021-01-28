@@ -51,8 +51,8 @@ export default function AdminNavbarLinks() {
     document.location.href="/login";
   }
 
-  const handleDashboardOut = () => {
-    document.location.href="/admin/db";
+  const handleRedirectToUser = () => {
+    document.location.href="/admin/user";
   }
 
   return (
@@ -80,7 +80,7 @@ export default function AdminNavbarLinks() {
         aria-label="Dashboard"
         className={classes.buttonLink}
       >
-        <a href="/admin/db"> <Dashboard className={classes.icons} /></a>
+        <a href="/admin/user"> <Dashboard className={classes.icons} /></a>
         <Hidden mdUp implementation="css">
           <p className={classes.linkText}>Dashboard</p>
         </Hidden>
@@ -202,7 +202,7 @@ export default function AdminNavbarLinks() {
                 <ClickAwayListener onClickAway={handleCloseProfile}>
                   <MenuList role="menu">
                     <MenuItem
-                      onClick={handleCloseProfile}
+                      onClick={handleRedirectToUser}
                       className={classes.dropdownItem}
                     >
                       Profile

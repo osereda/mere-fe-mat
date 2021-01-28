@@ -92,7 +92,7 @@ export default function Sidebar(props) {
     let user = (
         <div className={classes.avatar}>
             <a
-                href="/"
+                href="/admin/user"
                 className={classes.avatarLink}
             >
             <div style={{ display: "flex" }}>

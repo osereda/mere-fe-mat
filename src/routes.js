@@ -34,7 +34,6 @@ const Routes = [
     name: "Station",
     icon: EvStationIcon,
     component: Station,
-    //component: UserProfile,
     layout: "/admin"
   },
   {
@@ -84,6 +83,13 @@ const Routes = [
     name: "Outgoing Message",
     icon: MessageIcon,
     component: NotificationsPage,
+    layout: "/admin"
+  },
+  {
+    path: "/user",
+    name: "User Profile",
+    icon: MessageIcon,
+    component: UserProfile,
     layout: "/admin"
   }
   // {
