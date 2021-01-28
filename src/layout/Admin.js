@@ -10,7 +10,8 @@ import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 import routes from "routes.js";
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 import bgImage from "assets/img/sidebar-2.jpg";
-import logo from "assets/img/logoPM.png";
+import logoPM from "assets/img/logoPM.png";
+import logoZ from "assets/img/logoZ.svg";
 
 let ps;
 
@@ -86,12 +87,18 @@ export default function Admin({ ...rest }) {
       window.removeEventListener("resize", resizeFunction);
     };
   }, [mainPanel]);
+
+  const getLogo = () => {
+    if(localStorage.getItem("org") === 'PowerMobility') return logoPM;
+    if(localStorage.getItem("org") === 'ZMove') return logoZ;
+  }
+
   return (
     <div className={classes.wrapper}>
       <Sidebar
         routes={routes}
-        logoText={"Admin admin"}
-        logo={logo}
+        logoText={localStorage.getItem("user")}
+        logo={getLogo()}
         image={image}
         handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen}
