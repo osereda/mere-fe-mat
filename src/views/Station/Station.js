@@ -22,7 +22,7 @@ import CardIcon from "../../components/Card/CardIcon";
 import Scooter from "@material-ui/icons/TwoWheeler";
 import CardBody from "../../components/Card/CardBody";
 import GridContainer from "../../components/Grid/GridContainer";
-import {ButtonGroup} from "@material-ui/core";
+import {ButtonGroup, FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 
 const useRowStyles = makeStyles({
@@ -120,6 +120,7 @@ export default class Station extends React.Component {
         this.state = {
             count: 0,
             rows:[],
+            f_rows:[],
             stationQty: 0,
             slotQty : 0,
             availableQty : 0,
@@ -127,8 +128,12 @@ export default class Station extends React.Component {
             outOfWork : 0
         };
 
+        this.isActive = true;
+        this.tmpArr = [];
+
         this.GetStationData = this.GetStationData.bind(this);
         this.setStationData = this.setStationData.bind(this);
+        this.filterStation = this.filterStation.bind(this);
     }
 
 
@@ -142,7 +147,6 @@ export default class Station extends React.Component {
             })
             .then((data) => {
                 if(data.length > 0) {
-                    console.log('data ->' + data);
                     this.setStationData(data)
                 }
             })
@@ -166,9 +170,37 @@ export default class Station extends React.Component {
 
         })
         this.setState({ rows: data});
+        this.setState({ f_rows: data});
         this.setState({ slotQty: countSlots});
         this.setState({ availableQty: availableSlot});
         this.setState({ occupiedQty: occupiedSlot});
+        this.filterStation();
+    }
+
+    filterStation(event) {
+        let value = event ? event.target.innerText : "all";
+        console.log("event.target.value = " + value);
+
+        let tmpArr = [];
+
+        if(value !== "All" && this.state.f_rows) {
+            tmpArr = this.state.f_rows.filter(item => {
+                if (item.arr_slots.length > 0)
+                item.arr_slots = item.arr_slots.filter(sl => {
+                    if (value === 'Available' && sl.slot_status === 0)
+                        return sl;
+                    if (value === 'Occupied' && sl.slot_status === 1)
+                        return sl;
+                    // if (sl.slot_status === 0)
+                    //     return sl;
+                    // if (sl.slot_status === 0)
+                    //     return sl;
+                });
+                return item;
+            })
+        }
+        // console.log("this.f_rows -> " + tmpArr);
+        //this.setState({ rows: tmpArr});
     }
 
     componentDidMount() {
@@ -184,8 +216,8 @@ export default class Station extends React.Component {
                             {/*<CardIcon color="success">*/}
                             {/*    <Scooter/>*/}
                             {/*</CardIcon>*/}
-                            <h4 className="cardTitleWhite">Stations</h4>
-                            <p className="cardCategoryWhite">
+                            <h4 className="stCardTitleWhite">Stations</h4>
+                            <p className="stCardCategoryWhite">
                                 Information&nbsp;-&nbsp;&nbsp;stationQty: {this.state.stationQty}&nbsp;
                                 slotQty: {this.state.slotQty}&nbsp;
                                 availableQty: {this.state.availableQty}&nbsp;
@@ -196,15 +228,14 @@ export default class Station extends React.Component {
                         <CardBody>
                             <TableContainer component={Paper}>
 
-                                <ButtonGroup variant="contained" color="info" aria-label="contained primary button group">
-                                    <Button>All</Button>
-                                    <Button>Occupied</Button>
-                                    <Button>Available</Button>
-                                    <Button>Unavailable</Button>
-                                    <Button>Online</Button>
-                                    <Button>Offline</Button>
-                                </ButtonGroup>
-
+                                {/*<ButtonGroup variant="contained" color="info" aria-label="contained primary button group">*/}
+                                {/*    <Button className={this.isActive ? "actfilterButton" : "filterButton" }>All</Button>*/}
+                                {/*    <Button id ="Occupied" >Available</Button>*/}
+                                {/*    <Button>Occupied</Button>*/}
+                                {/*    <Button>Unavailable</Button>*/}
+                                {/*    <Button>Online</Button>*/}
+                                {/*    <Button>Offline</Button>*/}
+                                {/*</ButtonGroup>*/}
                                 <Table aria-label="collapsible table">
                                     <TableHead>
                                         <TableRow>

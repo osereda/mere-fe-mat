@@ -9,3 +9,34 @@
 .addTableBody {
     background-color: #eeeeee;
 }
+
+.filterButton {
+    background-color: white !important;
+}
+
+.actfilterButton {
+    background-color: red !important;
+}
+
+.filterButton:active  {
+    background-color: red !important;
+}
+
+
+.stCardTitleWhite {
+    color: white;
+    margin-top: 0px !important;
+    min-height: auto!important;
+    font-weight: 300!important;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif!important;
+    margin-bottom: 3px!important;
+    text-decoration: none!important;
+}
+
+.stCardCategoryWhite {
+    color: rgba(255,255,255,.62)!important;
+    margin: 0 !important;
+    font-size: 14px!important;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}

@@ -1,13 +1,9 @@
-import React from "react";
-// @material-ui/core components
+import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
-// @material-ui/icons
 import Email from "@material-ui/icons/Email";
 import People from "@material-ui/icons/People";
-// core components
-
 import Footer from "components/Footer/Footer.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
@@ -21,6 +17,9 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import styles from "../../assets/jss/material-dashboard-react/loginPage";
 
 import image from "../../assets/img/bg7.jpg";
+import {TextField} from "@material-ui/core";
+import {AccountCircle} from "@material-ui/icons";
+import LockIcon from '@material-ui/icons/Lock';
 
 const useStyles = makeStyles(styles);
 
@@ -31,6 +30,50 @@ export default function LoginPage(props) {
     }, 700);
     const classes = useStyles();
     const { ...rest } = props;
+
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const onLogIn = () => {
+        {
+
+            const url = new URL('http://localhost:5000/api/user/us/' + username);
+            fetch(url.toString())
+                .then(response => {
+                    if (!response.ok) {
+                        console.log('error');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    if(data.password && data.password === password) {
+                        let org = data.org;
+                        document.location.href="/home";
+                        localStorage.setItem("isAuth", "xS1tnMgfDt");
+                        localStorage.setItem("user", username);
+                        localStorage.setItem("org", org);
+                    }
+                })
+        }
+    }
+
+    const handleChangeName = e => {
+        console.log('login' + e.target.value);
+        setUsername(e.target.value);
+    }
+
+    const  handleChangeEmail = e => {
+        console.log('login' + e.target.value);
+        setEmail(e.target.value);
+    }
+
+    const  handleChangePass = e => {
+        console.log('login' + e.target.value);
+        setPassword(e.target.value);
+    }
+
+
     return (
         <div>
             <div
@@ -47,7 +90,7 @@ export default function LoginPage(props) {
                             <Card className={classes[cardAnimaton]}>
                                 <form className={classes.form}>
                                     <CardHeader color="primary" className={classes.cardHeader}>
-                                        <h4>Login</h4>
+                                        <h3>Login</h3>
                                         <div className={classes.socialLine}>
                                             <Button
                                                 justIcon
@@ -78,59 +121,56 @@ export default function LoginPage(props) {
                                             </Button>
                                         </div>
                                     </CardHeader>
-                                    <p className={classes.divider}>Or Be Classical</p>
                                     <CardBody>
-                                        <CustomInput
-                                            labelText="First Name..."
-                                            id="first"
-                                            formControlProps={{
-                                                fullWidth: true
-                                            }}
-                                            inputProps={{
-                                                type: "text",
+                                        <p>
+                                            <TextField
+                                                style={{ width: "100%", color: "red" }}
+                                                label="First Name..."
+                                                value={username}
+                                                onChange={handleChangeName}
+                                                InputProps={{
+                                                    endAdornment: (
+                                                        <InputAdornment position='end'>
+                                                            <People />
+                                                        </InputAdornment>
+                                                    ),
+                                                }}
+                                            />
+                                        </p>
+                                        <p>
+                                            <TextField
+                                                style={{ width: "100%" }}
+                                                label="Email.."
+                                                value={email}
+                                                onChange={handleChangeEmail}
+                                                InputProps={{
+                                                    endAdornment: (
+                                                        <InputAdornment position='end'>
+                                                            <Email />
+                                                        </InputAdornment>
+                                                    ),
+                                                }}
+                                            />
+                                        </p>
+                                    <p>
+                                        <TextField
+                                            style={{ width: "100%" }}
+                                            label="Password"
+                                            value={password}
+                                            onChange={handleChangePass}
+                                            InputProps={{
                                                 endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <People className={classes.inputIconsColor} />
-                                                    </InputAdornment>
-                                                )
-                                            }}
-                                        />
-                                        <CustomInput
-                                            labelText="Email..."
-                                            id="email"
-                                            formControlProps={{
-                                                fullWidth: true
-                                            }}
-                                            inputProps={{
-                                                type: "email",
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <Email className={classes.inputIconsColor} />
-                                                    </InputAdornment>
-                                                )
-                                            }}
-                                        />
-                                        <CustomInput
-                                            labelText="Password"
-                                            id="pass"
-                                            formControlProps={{
-                                                fullWidth: true
-                                            }}
-                                            inputProps={{
-                                                type: "password",
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <Icon className={classes.inputIconsColor}>
-                                                            lock_outline
-                                                        </Icon>
+                                                    <InputAdornment position='end'>
+                                                        <LockIcon />
                                                     </InputAdornment>
                                                 ),
-                                                autoComplete: "off"
                                             }}
                                         />
+                                    </p>
+
                                     </CardBody>
                                     <CardFooter className={classes.cardFooter}>
-                                        <Button simple color="primary" size="lg">
+                                        <Button simple color="primary" size="lg" onClick={onLogIn}>
                                             Get started
                                         </Button>
                                     </CardFooter>
@@ -139,7 +179,6 @@ export default function LoginPage(props) {
                         </GridItem>
                     </GridContainer>
                 </div>
-                <Footer whiteFont />
             </div>
         </div>
     );
