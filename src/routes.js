@@ -88,18 +88,11 @@ const Routes = [
   {
     path: "/user",
     name: "User Profile",
-    icon: MessageIcon,
+
+    icon: Unarchive,
     component: UserProfile,
     layout: "/admin"
   }
-  // {
-  //   path: "/upgrade-to-pro",
-  //   name: "Upgrade To PRO",
-  //
-  //   icon: Unarchive,
-  //   component: UpgradeToPro,
-  //   layout: "/admin"
-  // }
 ];
 
 export default Routes;

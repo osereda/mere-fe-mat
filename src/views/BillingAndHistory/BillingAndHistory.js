@@ -77,9 +77,9 @@ export default class BillingAndHistory extends React.Component {
                 <GridItem xs={12} sm={12} md={12}>
                     <Card>
                         <CardHeader color="primary">
-                            <h4 className="bahCardTitleWhite">Power And Cost</h4>
+                            <h4 className="bahCardTitleWhite">Billing & History </h4>
                             <p className="bahCardCategoryWhite">
-                                Information Power And Cost
+                                Information Billing and History
                             </p>
                         </CardHeader>
                         <CardBody>

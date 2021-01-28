@@ -64,9 +64,9 @@ export default class StationRating extends React.Component {
                 <GridItem xs={12} sm={12} md={12}>
                     <Card>
                         <CardHeader color="primary">
-                            <h4 className="bahCardTitleWhite">Power And Cost</h4>
+                            <h4 className="bahCardTitleWhite">Station Rating</h4>
                             <p className="bahCardCategoryWhite">
-                                Information Power And Cost
+                                Information StationRating
                             </p>
                         </CardHeader>
                         <CardBody>
