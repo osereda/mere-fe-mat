@@ -6,12 +6,20 @@ import CardHeader from "../../components/Card/CardHeader";
 import CardBody from "../../components/Card/CardBody";
 import GridContainer from "../../components/Grid/GridContainer";
 import './bah.css';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardTimePicker,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
+import Grid from "@material-ui/core/Grid";
 
 export default class BillingAndHistory extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             count: 0,
+            selectedDate: '2014-08-18T21:11:54',
             columns: [
                 { field: 'sc_id', headerName: 'ID', width: 70 },
                 { field: 'sc_type', headerName: 'Type', width: 130 },
@@ -31,6 +39,7 @@ export default class BillingAndHistory extends React.Component {
 
         this.setScooterData = this.setScooterData.bind(this);
         this.getScooterData = this.getScooterData.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
     }
 
     getScooterData() {
@@ -58,6 +67,10 @@ export default class BillingAndHistory extends React.Component {
         this.getScooterData();
     }
 
+    handleDateChange = (date) => {
+        this.setState({ selectedDate: date})
+    };
+
     render() {
         return(
             <GridContainer>
@@ -70,6 +83,23 @@ export default class BillingAndHistory extends React.Component {
                             </p>
                         </CardHeader>
                         <CardBody>
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <Grid container justify="space-around">
+                                    <KeyboardDatePicker
+                                        disableToolbar
+                                        variant="inline"
+                                        format="MM/dd/yyyy"
+                                        margin="normal"
+                                        id="date-picker-inline"
+                                        label="Date picker inline"
+                                        value={this.state.selectedDate}
+                                        onChange={this.handleDateChange}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change date',
+                                        }}
+                                    />
+                                </Grid>
+                            </MuiPickersUtilsProvider>
                             <div style={{ height: 400, width: '100%' }}>
                                 <DataGrid rows={this.state.rows} columns={this.state.columns} pageSize={5} checkboxSelection />
                             </div>

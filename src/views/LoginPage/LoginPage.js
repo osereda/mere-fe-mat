@@ -155,6 +155,7 @@ export default function LoginPage(props) {
                                     <p>
                                         <TextField
                                             style={{ width: "100%" }}
+                                            type="password"
                                             label="Password"
                                             value={password}
                                             onChange={handleChangePass}
