@@ -4,7 +4,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 import Email from "@material-ui/icons/Email";
 import People from "@material-ui/icons/People";
-import Footer from "components/Footer/Footer.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
@@ -12,17 +11,14 @@ import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
-
 import styles from "../../assets/jss/material-dashboard-react/loginPage";
-
 import image from "../../assets/img/bg7.jpg";
 import {TextField} from "@material-ui/core";
 import {AccountCircle} from "@material-ui/icons";
 import LockIcon from '@material-ui/icons/Lock';
+import configData from "../../config.json"
 
 const useStyles = makeStyles(styles);
-
 export default function LoginPage(props) {
     const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
     setTimeout(function() {
@@ -37,8 +33,7 @@ export default function LoginPage(props) {
 
     const onLogIn = () => {
         {
-
-            const url = new URL('http://localhost:5000/api/user/us/' + username);
+            const url = new URL(configData.SERVER_URL+'user/us/' + username);
             fetch(url.toString())
                 .then(response => {
                     if (!response.ok) {

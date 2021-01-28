@@ -6,6 +6,7 @@ import CardHeader from "../../components/Card/CardHeader";
 import CardBody from "../../components/Card/CardBody";
 import GridContainer from "../../components/Grid/GridContainer";
 import './scooter.css';
+import configData from "../../config.json"
 
 export default class Scooters extends React.Component {
     constructor(props) {
@@ -37,7 +38,7 @@ export default class Scooters extends React.Component {
     }
 
     getScooterData() {
-        fetch('http://localhost:5000/api/scooter/all')
+        fetch(configData.SERVER_URL+'scooter/all')
             .then(response => {
                 if (!response.ok) {
                     console.log('error');

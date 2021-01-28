@@ -12,7 +12,6 @@ import Update from "@material-ui/icons/Update";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import AccessTime from "@material-ui/icons/AccessTime";
 import LanguageIcon from '@material-ui/icons/Language';
-
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Danger from "components/Typography/Danger.js";
@@ -22,8 +21,7 @@ import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import Map from "components/Map/Map";
-
-import { bugs, website, server } from "variables/general.js";
+import configData from "../../config.json"
 
 import {
   dailySalesChart,
@@ -36,10 +34,8 @@ import axios from "axios";
 
 const useStyles = makeStyles(styles);
 
-let scooterQty = 7;
-
 function getData() {
-  fetch('http://localhost:5000/api/scooter/all')
+  fetch(configData.SERVER_URL+'scooter/all')
       .then(response => {
         if (!response.ok) {
           console.log('error');
@@ -88,14 +84,14 @@ export default function Dashboard() {
 
 
   useEffect(() => {
-    const fetchData1 = async () => {
-      const result = await axios(
-          'http://localhost:5000/api/scooter/all',
-      );
-    };
+    // const fetchData1 = async () => {
+    //   const result = await axios(
+    //       'http://localhost:5000/api/scooter/all',
+    //   );
+    // };
 
 
-    fetch('http://localhost:5000/api/scooter/all')
+    fetch(configData.SERVER_URL+'scooter/all')
         .then(response => {
           if (!response.ok) {
             console.log('error');
@@ -104,11 +100,10 @@ export default function Dashboard() {
         })
         .then((data) => {
           setScooterQty(data.length);
-          console.log('XXXX');
         })
 
 
-    fetch('http://localhost:5000/api/station/all')
+    fetch(configData.SERVER_URL+'station/all')
         .then(response => {
           if (!response.ok) {
             console.log('error');

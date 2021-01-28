@@ -13,6 +13,7 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 import Grid from "@material-ui/core/Grid";
+import configData from "../../config.json"
 
 export default class BillingAndHistory extends React.Component {
     constructor(props) {
@@ -43,7 +44,7 @@ export default class BillingAndHistory extends React.Component {
     }
 
     getScooterData() {
-        fetch('http://localhost:5000/api/scooter/all')
+        fetch(configData.SERVER_URL+'scooter/all')
             .then(response => {
                 if (!response.ok) {
                     console.log('error');

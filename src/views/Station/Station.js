@@ -14,16 +14,15 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import './station.css';
 import GridItem from "../../components/Grid/GridItem";
 import Card from "../../components/Card/Card";
 import CardHeader from "../../components/Card/CardHeader";
-import CardIcon from "../../components/Card/CardIcon";
-import Scooter from "@material-ui/icons/TwoWheeler";
 import CardBody from "../../components/Card/CardBody";
 import GridContainer from "../../components/Grid/GridContainer";
 import {ButtonGroup, FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import configData from "../../config.json"
+import './station.css';
 
 const useRowStyles = makeStyles({
     root: {
@@ -138,7 +137,7 @@ export default class Station extends React.Component {
 
 
     GetStationData() {
-        fetch('http://localhost:5000/api/station/all')
+        fetch(configData.SERVER_URL+'station/all')
             .then(response => {
                 if (!response.ok) {
                     console.log('error');
@@ -191,10 +190,7 @@ export default class Station extends React.Component {
                         return sl;
                     if (value === 'Occupied' && sl.slot_status === 1)
                         return sl;
-                    // if (sl.slot_status === 0)
-                    //     return sl;
-                    // if (sl.slot_status === 0)
-                    //     return sl;
+
                 });
                 return item;
             })
@@ -213,9 +209,6 @@ export default class Station extends React.Component {
                 <GridItem xs={12} sm={12} md={12}>
                     <Card>
                         <CardHeader color="primary">
-                            {/*<CardIcon color="success">*/}
-                            {/*    <Scooter/>*/}
-                            {/*</CardIcon>*/}
                             <h4 className="stCardTitleWhite">Stations</h4>
                             <p className="stCardCategoryWhite">
                                 Information&nbsp;-&nbsp;&nbsp;stationQty: {this.state.stationQty}&nbsp;
