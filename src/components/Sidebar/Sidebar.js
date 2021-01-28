@@ -11,6 +11,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks";
+import {Avatar} from "@material-ui/core";
 
 const useStyles = makeStyles(styles);
 
@@ -85,21 +86,21 @@ export default function Sidebar(props) {
         <div className={classes.logoImage}>
           <img src={logo} alt="logo" className={classes.imgLogo} />
         </div>
-        {logoText}
       </a>
     </div>
   );
     let user = (
         <div className={classes.avatar}>
             <a
-                href="https://www.ssssss"
+                href="/"
                 className={classes.avatarLink}
-                target="_blank"
             >
-                <div className={classes.avatarImage}>
-                    <img src={logo} alt="logo" className={classes.avatarImage} />
+            <div style={{ display: "flex" }}>
+                <Avatar>PM</Avatar>
+                <div style={{ marginTop: "5px", marginLeft: "15px" }}>
+                    {logoText}
                 </div>
-                {logoText}
+            </div>
             </a>
         </div>
     );

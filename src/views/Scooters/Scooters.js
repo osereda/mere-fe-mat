@@ -293,11 +293,11 @@ export default class Scooters extends React.Component {
                 <GridItem xs={12} sm={12} md={12}>
                     <Card>
                         <CardHeader color="primary">
-                            <CardIcon color="success">
-                                <Scooter/>
-                            </CardIcon>
-                            <h4 className="cardTitleWhite">Scooters</h4>
-                            <p className="cardCategoryWhite">
+                            {/*<CardIcon color="success">*/}
+                            {/*    <Scooter/>*/}
+                            {/*</CardIcon>*/}
+                            <h4 className="bahCardTitleWhite">Scooters</h4>
+                            <p className="bahCardCategoryWhite">
                                 Scooters Information
                             </p>
                         </CardHeader>

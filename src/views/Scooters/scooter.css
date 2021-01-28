@@ -1,4 +1,4 @@
-.cardTitleWhite {
+.bahCardTitleWhite {
     color: white;
     margin-top: 0px !important;
     min-height: auto!important;
@@ -8,7 +8,7 @@
     text-decoration: none!important;
 }
 
-.cardCategoryWhite {
+.bahCardCategoryWhite {
     color: rgba(255,255,255,.62)!important;
     margin: 0 !important;
     font-size: 14px!important;

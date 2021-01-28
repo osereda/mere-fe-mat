@@ -16,3 +16,21 @@
 .root {
     width: 100%;
 }
+
+.bahCardTitleWhite {
+    color: white;
+    margin-top: 0px !important;
+    min-height: auto!important;
+    font-weight: 300!important;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif!important;
+    margin-bottom: 3px!important;
+    text-decoration: none!important;
+}
+
+.bahCardCategoryWhite {
+    color: rgba(255,255,255,.62)!important;
+    margin: 0 !important;
+    font-size: 14px!important;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}

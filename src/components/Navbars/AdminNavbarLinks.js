@@ -50,6 +50,11 @@ export default function AdminNavbarLinks() {
     localStorage.removeItem("org");
     document.location.href="/login";
   }
+
+  const handleDashboardOut = () => {
+    document.location.href="/admin/db";
+  }
+
   return (
     <div>
       <div className={classes.searchWrapper}>
@@ -75,7 +80,7 @@ export default function AdminNavbarLinks() {
         aria-label="Dashboard"
         className={classes.buttonLink}
       >
-        <Dashboard className={classes.icons} />
+        <a href="/admin/db"> <Dashboard className={classes.icons} /></a>
         <Hidden mdUp implementation="css">
           <p className={classes.linkText}>Dashboard</p>
         </Hidden>
@@ -91,7 +96,7 @@ export default function AdminNavbarLinks() {
           className={classes.buttonLink}
         >
           <Notifications className={classes.icons} />
-          <span className={classes.notifications}>5</span>
+          <span className={classes.notifications}>1</span>
           <Hidden mdUp implementation="css">
             <p onClick={handleCloseNotification} className={classes.linkText}>
               Notification
@@ -125,32 +130,32 @@ export default function AdminNavbarLinks() {
                       onClick={handleCloseNotification}
                       className={classes.dropdownItem}
                     >
-                      Mike John responded to your email
+                      Scooter with ID 000123004 have started charge
                     </MenuItem>
-                    <MenuItem
-                      onClick={handleCloseNotification}
-                      className={classes.dropdownItem}
-                    >
-                      You have 5 new tasks
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleCloseNotification}
-                      className={classes.dropdownItem}
-                    >
-                      You{"'"}re now friend with Andrew
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleCloseNotification}
-                      className={classes.dropdownItem}
-                    >
-                      Another Notification
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleCloseNotification}
-                      className={classes.dropdownItem}
-                    >
-                      Another One
-                    </MenuItem>
+                    {/*<MenuItem*/}
+                    {/*  onClick={handleCloseNotification}*/}
+                    {/*  className={classes.dropdownItem}*/}
+                    {/*>*/}
+                    {/*  You have 5 new tasks*/}
+                    {/*</MenuItem>*/}
+                    {/*<MenuItem*/}
+                    {/*  onClick={handleCloseNotification}*/}
+                    {/*  className={classes.dropdownItem}*/}
+                    {/*>*/}
+                    {/*  You{"'"}re now friend with Andrew*/}
+                    {/*</MenuItem>*/}
+                    {/*<MenuItem*/}
+                    {/*  onClick={handleCloseNotification}*/}
+                    {/*  className={classes.dropdownItem}*/}
+                    {/*>*/}
+                    {/*  Another Notification*/}
+                    {/*</MenuItem>*/}
+                    {/*<MenuItem*/}
+                    {/*  onClick={handleCloseNotification}*/}
+                    {/*  className={classes.dropdownItem}*/}
+                    {/*>*/}
+                    {/*  Another One*/}
+                    {/*</MenuItem>*/}
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
@@ -202,12 +207,12 @@ export default function AdminNavbarLinks() {
                     >
                       Profile
                     </MenuItem>
-                    <MenuItem
-                      onClick={handleCloseProfile}
-                      className={classes.dropdownItem}
-                    >
-                      Settings
-                    </MenuItem>
+                    {/*<MenuItem*/}
+                    {/*  onClick={handleCloseProfile}*/}
+                    {/*  className={classes.dropdownItem}*/}
+                    {/*>*/}
+                    {/*  Settings*/}
+                    {/*</MenuItem>*/}
                     <Divider light />
                     <MenuItem
                       onClick={handleLogOut}
