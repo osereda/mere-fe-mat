@@ -56,12 +56,12 @@ function Row(props) {
                 <TableCell className="addTableBody" style={{ paddingBottom: 1, paddingTop: 0 }} colSpan={6}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box margin={1}>
-                            <Typography className="tableHeader" variant="h6" gutterBottom component="div">
+                            <Typography className="tableHeader" variant="h8" gutterBottom component="div">
                                 Slots
                                 <hr/>
                             </Typography>
                             <Table size="small" aria-label="purchases">
-                                <TableHead className="tableHeader">
+                                <TableHead className="tableBody">
                                     <TableRow style={{ textColor: "red"}} >
                                         <TableCell>Pad ID</TableCell>
                                         <TableCell>Status</TableCell>
@@ -117,8 +117,13 @@ export default class Station extends React.Component {
         super(props);
         this.state = {
             count: 0,
-            rows:[ ]
-        }
+            rows:[],
+            stationQty: 0,
+            slotQty : 0,
+            availableQty : 0,
+            occupiedQty : 0,
+            outOfWork : 0
+        };
 
         this.GetStationData = this.GetStationData.bind(this);
         this.setStationData = this.setStationData.bind(this);
@@ -143,10 +148,15 @@ export default class Station extends React.Component {
     }
 
     setStationData(data) {
+        let countSlots = 0;
+        let availableSlot = 0;
         data.forEach((item, i) => {
             item.n = ++i;
             item.st_counts_slot = item.id_slots.length;
             item.st_status = "online";
+            countSlots = countSlots + item.id_slots.length;
+            this.setState({ stationQty: i});
+            this.setState({ slotQty: countSlots})
         })
         this.setState({ rows: data})
     }
@@ -166,7 +176,11 @@ export default class Station extends React.Component {
                             {/*</CardIcon>*/}
                             <h4 className="cardTitleWhite">Stations</h4>
                             <p className="cardCategoryWhite">
-                                Stations Information
+                                Information: stationQty - {this.state.stationQty}&nbsp;
+                                slotQty - {this.state.slotQty}&nbsp;
+                                availableQty - {this.state.availableQty}&nbsp;
+                                occupiedQty - {this.state.occupiedQty}&nbsp;
+                                outOfWork - {this.state.outOfWork}&nbsp;
                             </p>
                         </CardHeader>
                         <CardBody>
