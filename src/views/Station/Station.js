@@ -22,6 +22,8 @@ import CardIcon from "../../components/Card/CardIcon";
 import Scooter from "@material-ui/icons/TwoWheeler";
 import CardBody from "../../components/Card/CardBody";
 import GridContainer from "../../components/Grid/GridContainer";
+import {ButtonGroup} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
 const useRowStyles = makeStyles({
     root: {
@@ -150,15 +152,23 @@ export default class Station extends React.Component {
     setStationData(data) {
         let countSlots = 0;
         let availableSlot = 0;
+        let occupiedSlot = 0;
         data.forEach((item, i) => {
             item.n = ++i;
             item.st_counts_slot = item.id_slots.length;
             item.st_status = "online";
             countSlots = countSlots + item.id_slots.length;
             this.setState({ stationQty: i});
-            this.setState({ slotQty: countSlots})
+            item.arr_slots.forEach(sl => {
+                if(sl.slot_status === 0)  availableSlot++;
+                if(sl.slot_status === 1)  occupiedSlot++;
+            });
+
         })
-        this.setState({ rows: data})
+        this.setState({ rows: data});
+        this.setState({ slotQty: countSlots});
+        this.setState({ availableQty: availableSlot});
+        this.setState({ occupiedQty: occupiedSlot});
     }
 
     componentDidMount() {
@@ -176,15 +186,25 @@ export default class Station extends React.Component {
                             {/*</CardIcon>*/}
                             <h4 className="cardTitleWhite">Stations</h4>
                             <p className="cardCategoryWhite">
-                                Information: stationQty - {this.state.stationQty}&nbsp;
-                                slotQty - {this.state.slotQty}&nbsp;
-                                availableQty - {this.state.availableQty}&nbsp;
-                                occupiedQty - {this.state.occupiedQty}&nbsp;
-                                outOfWork - {this.state.outOfWork}&nbsp;
+                                Information&nbsp;-&nbsp;&nbsp;stationQty: {this.state.stationQty}&nbsp;
+                                slotQty: {this.state.slotQty}&nbsp;
+                                availableQty: {this.state.availableQty}&nbsp;
+                                occupiedQty: {this.state.occupiedQty}&nbsp;
+                                outOfWork: {this.state.outOfWork}&nbsp;
                             </p>
                         </CardHeader>
                         <CardBody>
                             <TableContainer component={Paper}>
+
+                                <ButtonGroup variant="contained" color="info" aria-label="contained primary button group">
+                                    <Button>All</Button>
+                                    <Button>Occupied</Button>
+                                    <Button>Available</Button>
+                                    <Button>Unavailable</Button>
+                                    <Button>Online</Button>
+                                    <Button>Offline</Button>
+                                </ButtonGroup>
+
                                 <Table aria-label="collapsible table">
                                     <TableHead>
                                         <TableRow>
