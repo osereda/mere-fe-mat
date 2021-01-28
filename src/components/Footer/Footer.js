@@ -19,22 +19,22 @@ export default function Footer(props) {
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
               <a href="#home" className={classes.block}>
-                Home
+                Dashboard
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a href="#company" className={classes.block}>
-                Company
+                Stations
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a href="#portfolio" className={classes.block}>
-                Portfolio
+                Scooters
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a href="#blog" className={classes.block}>
-                Blog
+                User
               </a>
             </ListItem>
           </List>
@@ -43,13 +43,13 @@ export default function Footer(props) {
           <span>
             &copy; {1900 + new Date().getYear()}{" "}
             <a
-              href="https://www.creative-tim.com?ref=mdr-footer"
+              href="https://www.meredot"
               target="_blank"
               className={classes.a}
             >
-              Creative Tim
+              Meredot
             </a>
-            , made with love for a better web
+            , technologies of the future
           </span>
         </p>
       </div>

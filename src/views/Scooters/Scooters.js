@@ -12,6 +12,11 @@ export default class Scooters extends React.Component {
         super(props);
         this.state = {
             count: 0,
+             scootersQty: 0,
+             grantedQty: 0,
+             deniedQty: 0,
+             chargingQty: 0,
+             notChargingQty: 0,
             columns: [
                 { field: 'sc_id', headerName: 'ID', flex: 0.3},
                 { field: 'sc_type', headerName: 'Type', flex: 0.3},
@@ -22,11 +27,9 @@ export default class Scooters extends React.Component {
                     description: 'address Station location',
                     sortable: false,
                     flex: 0.3
-                    // valueGetter: (params) =>
-                    //     `${params.getValue('firstName') || ''} ${params.getValue('lastName') || ''}`,
                 },
             ],
-            rows: [{ id: 1, sc_type: 'Snow', sc_pow: 'Jon', age: 35 }]
+            rows: []
         };
 
         this.setScooterData = this.setScooterData.bind(this);
@@ -48,10 +51,25 @@ export default class Scooters extends React.Component {
     }
 
     setScooterData(data) {
+        let chargingQty = 0;
+        let notChargingQty = 0;
+        let grantedQty = 0;
+        let deniedQty = 0;
+        let scootersQty = 0;
         data.forEach((item, i) => {
             item.id = i;
+            scootersQty++;
+            if(item.sc_status === 1) chargingQty++;
+            if(item.sc_status === 0 || item.sc_status === 3) notChargingQty++;
+            if(item.sc_perm === 1) grantedQty++;
+            if(item.sc_perm === 0) deniedQty++;
         })
         this.setState({ rows: data})
+        this.setState({ scootersQty: scootersQty});
+        this.setState({ chargingQty: chargingQty});
+        this.setState({ notChargingQty: notChargingQty});
+        this.setState({ grantedQty: grantedQty});
+        this.setState({ deniedQty: deniedQty});
     }
 
     componentDidMount() {
@@ -66,12 +84,17 @@ export default class Scooters extends React.Component {
                         <CardHeader color="primary">
                             <h4 className="bahCardTitleWhite">Scooters</h4>
                             <p className="bahCardCategoryWhite">
-                                Scooter info:
+                                Scooter info:&emsp;&emsp;
+                                scootersQty: {this.state.scootersQty}&emsp;
+                                chargingQty: {this.state.chargingQty}&emsp;
+                                notChargingQty: {this.state.notChargingQty}&emsp;
+                                grantedQty: {this.state.grantedQty}&emsp;
+                                deniedQty: {this.state.deniedQty}&emsp;
                             </p>
                         </CardHeader>
                         <CardBody>
-                            <div style={{ height: 450, width: '100%' }}>
-                                <DataGrid rows={this.state.rows} columns={this.state.columns} pageSize={10} checkboxSelection />
+                            <div style={{ height: 400, width: '100%' }}>
+                                <DataGrid rows={this.state.rows} columns={this.state.columns} pageSize={5} checkboxSelection />
                             </div>
                         </CardBody>
                     </Card>

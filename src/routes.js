@@ -7,14 +7,9 @@ import HistoryIcon from '@material-ui/icons/History';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import MessageIcon from '@material-ui/icons/Message';
 import EuroIcon from '@material-ui/icons/Euro';
-
 import DashboardPage from "views/Dashboard/Dashboard.js";
 import UserProfile from "views/UserProfile/UserProfile.js";
-import TableList from "views/TableList/TableList.js";
-import Typography from "views/Typography/Typography.js";
-import Icons from "views/Icons/Icons.js";
 import NotificationsPage from "views/Notifications/Notifications.js";
-import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 import Scooters from "./views/Scooters/Scooters";
 import PowerAndCost from "views/PawerAndCost/PowerAndCost";
 import StationRating from "views/StationRating/StationRating";
