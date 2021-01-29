@@ -163,8 +163,14 @@ export default class Station extends React.Component {
             countSlots = countSlots + item.id_slots.length;
             this.setState({ stationQty: i});
             item.arr_slots.forEach(sl => {
-                if(sl.slot_status === 0)  availableSlot++;
-                if(sl.slot_status === 1)  occupiedSlot++;
+                if(sl.slot_status === 0) {
+                    availableSlot++;
+                    sl.slot_status = 'Available';
+                }
+                if(sl.slot_status === 1) {
+                    occupiedSlot++;
+                    sl.slot_status = 'Occupied';
+                }
             });
 
         })

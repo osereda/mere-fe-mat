@@ -60,10 +60,22 @@ export default class Scooters extends React.Component {
         data.forEach((item, i) => {
             item.id = i;
             scootersQty++;
-            if(item.sc_status === 1) chargingQty++;
-            if(item.sc_status === 0 || item.sc_status === 3) notChargingQty++;
-            if(item.sc_perm === 1) grantedQty++;
-            if(item.sc_perm === 0) deniedQty++;
+            if(item.sc_status === 1) {
+                chargingQty++;
+                item.sc_status = 'Charging';
+            }
+            if(item.sc_status === 0 || item.sc_status === 3){
+                notChargingQty++;
+                item.sc_status = 'Not charging';
+            }
+            if(item.sc_perm === 1) {
+                grantedQty++;
+                item.sc_perm = 'Granted';
+            }
+            if(item.sc_perm === 0) {
+                deniedQty++;
+                item.sc_perm = 'Denied';
+            }
         })
         this.setState({ rows: data})
         this.setState({ scootersQty: scootersQty});
