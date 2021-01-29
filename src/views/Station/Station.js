@@ -124,7 +124,15 @@ export default class Station extends React.Component {
             slotQty : 0,
             availableQty : 0,
             occupiedQty : 0,
-            outOfWork : 0
+            outOfWork : 0,
+
+            isAll: true,
+            isAvailable: false,
+            isOccupied: false,
+            isUnavailable: false,
+            isOnline: false,
+            isOffline: false
+
         };
 
         this.isActive = true;
@@ -133,6 +141,7 @@ export default class Station extends React.Component {
         this.GetStationData = this.GetStationData.bind(this);
         this.setStationData = this.setStationData.bind(this);
         this.filterStation = this.filterStation.bind(this);
+        this.handleFilter = this.handleFilter.bind(this);
     }
 
 
@@ -184,25 +193,42 @@ export default class Station extends React.Component {
 
     filterStation(event) {
         let value = event ? event.target.innerText : "all";
-        console.log("event.target.value = " + value);
+        //console.log("event.target.value = " + value);
 
         let tmpArr = [];
 
-        if(value !== "All" && this.state.f_rows) {
+        if(this.state.isAll !== true) {
             tmpArr = this.state.f_rows.filter(item => {
                 if (item.arr_slots.length > 0)
                 item.arr_slots = item.arr_slots.filter(sl => {
-                    if (value === 'Available' && sl.slot_status === 0)
+                    if (sl.slot_status === "Occupied" && document.getElementById("radio-2").checked) {
                         return sl;
-                    if (value === 'Occupied' && sl.slot_status === 1)
+                    }
+                    if (sl.slot_status === "Available" && document.getElementById("radio-3").checked) {
                         return sl;
-
+                    }
                 });
                 return item;
             })
+            this.setState({ rows: tmpArr});
         }
-        // console.log("this.f_rows -> " + tmpArr);
-        //this.setState({ rows: tmpArr});
+        console.log("this.f_rows -> " + tmpArr);
+    }
+
+    handleFilter() {
+        if(document.getElementById("radio-1").checked){
+            this.setState({ isAll: true});
+            this.setState({ isAvailable: false});
+            this.setState({ isOccupied: false});
+        }
+        if(document.getElementById("radio-2").checked){
+            this.setState({ isAll: false});
+            // this.setState({ isOccupied: true});
+        }
+        if(document.getElementById("radio-3").checked){
+            this.setState({ isAll: false});
+            // this.setState({ isAvailable: true});
+        }
     }
 
     componentDidMount() {
@@ -224,6 +250,33 @@ export default class Station extends React.Component {
                                 outOfWork: {this.state.outOfWork}&nbsp;
                             </p>
                         </CardHeader>
+                        <div>
+
+                            <div className="form_radio_btn">
+                                <input onClick={this.handleFilter} id="radio-1" type="radio" name="radio" value="1"/>
+                                    <label htmlFor="radio-1">All</label>
+                            </div>
+                            <div className="form_radio_btn">
+                                <input onClick={this.handleFilter} id="radio-2" type="radio" name="radio" value="2"/>
+                                    <label htmlFor="radio-2">Occupied</label>
+                            </div>
+                            <div className="form_radio_btn">
+                                <input  onClick={this.handleFilter} id="radio-3" type="radio" name="radio" value="3"/>
+                                    <label htmlFor="radio-3">Radio button 3</label>
+                            </div>
+                            <div className="form_radio_btn">
+                                <input onClick={this.handleFilter} id="radio-4" type="radio" name="radio" value="4" />
+                                    <label htmlFor="radio-4">Disabled</label>
+                            </div>
+                            <div className="form_radio_btn">
+                                <input  onClick={this.handleFilter} id="radio-5" type="radio" name="radio" value="5"/>
+                                <label htmlFor="radio-5">Radio button 3</label>
+                            </div>
+                            <div className="form_radio_btn">
+                                <input  onClick={this.handleFilter} id="radio-6" type="radio" name="radio" value="6"/>
+                                <label htmlFor="radio-6">Radio button 3</label>
+                            </div>
+                        </div>
                         <CardBody>
                             <TableContainer component={Paper}>
 
