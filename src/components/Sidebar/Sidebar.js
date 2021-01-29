@@ -79,9 +79,9 @@ export default function Sidebar(props) {
   let brand = (
     <div className={classes.logo}>
       <a
-        href="https://www.ssssss"
+        //href="https://www.ssssss"
         className={classes.logoLink}
-        target="_blank"
+        //target="_blank"
       >
         <div className={classes.logoImage}>
           <img src={logo} alt="logo" className={classes.imgLogo} />
@@ -96,7 +96,7 @@ export default function Sidebar(props) {
                 className={classes.avatarLink}
             >
             <div style={{ display: "flex" }}>
-                <Avatar>PM</Avatar>
+                <Avatar>{(localStorage.getItem("user").slice(0, 2))} </Avatar>
                 <div style={{ marginTop: "5px", marginLeft: "15px" }}>
                     {logoText}
                 </div>
