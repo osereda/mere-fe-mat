@@ -23,95 +23,10 @@ import {ButtonGroup, FormControlLabel, Radio, RadioGroup} from "@material-ui/cor
 import Button from "@material-ui/core/Button";
 import configData from "../../config.json"
 import './station.css';
-
-const useRowStyles = makeStyles({
-    root: {
-        '& > *': {
-            borderBottom: 'unset',
-        },
-    },
-});
-
-function Row(props) {
-    const { row } = props;
-    const [open, setOpen] = React.useState(false);
-    const classes = useRowStyles();
-
-    return (
-        <React.Fragment>
-            <TableRow className={classes.root}>
-                <TableCell>
-                    <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-                        {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                    </IconButton>
-                </TableCell>
-                <TableCell component="th" scope="row">
-                    {row.n}
-                </TableCell>
-                <TableCell align="center">{row.st_id}</TableCell>
-                <TableCell align="center">{row.st_status}</TableCell>
-                <TableCell align="center">{row.st_counts_slot}</TableCell>
-                <TableCell align="center">{row.location}</TableCell>
-            </TableRow>
-            <TableRow>
-                <TableCell className="addTableBody" style={{ paddingBottom: 1, paddingTop: 0 }} colSpan={6}>
-                    <Collapse in={open} timeout="auto" unmountOnExit>
-                        <Box margin={1}>
-                            <Typography className="tableHeader" variant="h8" gutterBottom component="div">
-                                Slots
-                                <hr/>
-                            </Typography>
-                            <Table size="small" aria-label="purchases">
-                                <TableHead className="tableBody">
-                                    <TableRow style={{ textColor: "red"}} >
-                                        <TableCell>Pad ID</TableCell>
-                                        <TableCell>Status</TableCell>
-                                        <TableCell align="right">Info</TableCell>
-                                        <TableCell align="right">Charge level, %</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody className="tableBody" >
-                                    {row.arr_slots.map((slotRow) => (
-                                        <TableRow key={slotRow.slot_id}>
-                                            <TableCell component="th" scope="row">
-                                                {slotRow.slot_id}
-                                            </TableCell>
-                                            <TableCell>{slotRow.slot_status}</TableCell>
-                                            <TableCell align="right">{slotRow.slot_status}</TableCell>
-                                            <TableCell align="right">{slotRow.slot_power}</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </Box>
-                    </Collapse>
-                </TableCell>
-            </TableRow>
-        </React.Fragment>
-    );
-}
-
-Row.propTypes = {
-    row: PropTypes.shape({
-        n: PropTypes.number.isRequired,
-        st_id: PropTypes.number.isRequired,
-        st_status: PropTypes.number.isRequired,
-        st_counts_slot: PropTypes.number.isRequired,
-        loc: PropTypes.number.isRequired,
-        arr_slots: PropTypes.arrayOf(
-            PropTypes.shape({
-                amount: PropTypes.number.isRequired,
-                customerId: PropTypes.string.isRequired,
-                charge: PropTypes.number.isRequired,
-                date: PropTypes.string.isRequired,
-            }),
-        ).isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        protein: PropTypes.number.isRequired,
-    }).isRequired,
-};
-
+import CardIcon from "../../components/Card/CardIcon";
+import StationIcon from "@material-ui/icons/EvStation";
+import LanguageIcon from "@material-ui/icons/Language";
+import {DataGrid} from "@material-ui/data-grid";
 
 export default class Station extends React.Component {
     constructor(props) {
@@ -131,7 +46,15 @@ export default class Station extends React.Component {
             isOccupied: false,
             isUnavailable: false,
             isOnline: false,
-            isOffline: false
+            isOffline: false,
+
+            columns: [
+                { field: 'slot_id', headerName: 'ID', flex: 0.3},
+                { field: 'slot_status', headerName: 'Status', flex: 0.3},
+                { field: 'slot_power', headerName: 'Charge level, %', flex: 0.3},
+                { field: 'slot_info', headerName: 'Status',type: 'number', flex: 0.3 },
+            ],
+            htable: 400
 
         };
 
@@ -171,7 +94,8 @@ export default class Station extends React.Component {
             item.st_status = "online";
             countSlots = countSlots + item.id_slots.length;
             this.setState({ stationQty: i});
-            item.arr_slots.forEach(sl => {
+            item.arr_slots.forEach((sl, i) => {
+                sl.id = i;
                 if(sl.slot_status === 0) {
                     availableSlot++;
                     sl.slot_status = 'Available';
@@ -180,10 +104,15 @@ export default class Station extends React.Component {
                     occupiedSlot++;
                     sl.slot_status = 'Occupied';
                 }
+                if(sl.slot_info === 0) {
+                    sl.slot_info = 'Offline';
+                }
+                if(sl.slot_info === 1) {
+                    sl.slot_info = 'Online';
+                }
             });
-
         })
-        this.setState({ rows: data});
+        // this.setState({ rows: data});
         this.setState({ f_rows: data});
         this.setState({ slotQty: countSlots});
         this.setState({ availableQty: availableSlot});
@@ -191,43 +120,39 @@ export default class Station extends React.Component {
         this.filterStation();
     }
 
-    filterStation(event) {
-        let value = event ? event.target.innerText : "all";
-        //console.log("event.target.value = " + value);
-
+    filterStation() {
         let tmpArr = [];
-
+        let arrOfSlots = [];
         if(this.state.isAll !== true) {
-            tmpArr = this.state.f_rows.filter(item => {
+            tmpArr = this.state.f_rows.forEach(item => {
                 if (item.arr_slots.length > 0)
-                item.arr_slots = item.arr_slots.filter(sl => {
+                    arrOfSlots = item.arr_slots.filter(sl => {
                     if (sl.slot_status === "Occupied" && document.getElementById("radio-2").checked) {
                         return sl;
                     }
                     if (sl.slot_status === "Available" && document.getElementById("radio-3").checked) {
                         return sl;
                     }
+                    if (sl.slot_info === "Online" && document.getElementById("radio-5").checked) {
+                        return sl;
+                    }
                 });
                 return item;
             })
-            this.setState({ rows: tmpArr});
-        }
-        console.log("this.f_rows -> " + tmpArr);
+            this.setState({ rows: arrOfSlots});
+        } else
+        this.setState({ rows: this.state.f_rows[0].arr_slots});
     }
 
     handleFilter() {
         if(document.getElementById("radio-1").checked){
             this.setState({ isAll: true});
-            this.setState({ isAvailable: false});
-            this.setState({ isOccupied: false});
         }
-        if(document.getElementById("radio-2").checked){
+        if(document.getElementById("radio-2").checked ||
+            document.getElementById("radio-3").checked ||
+            document.getElementById("radio-4").checked ||
+            document.getElementById("radio-5").checked ){
             this.setState({ isAll: false});
-            // this.setState({ isOccupied: true});
-        }
-        if(document.getElementById("radio-3").checked){
-            this.setState({ isAll: false});
-            // this.setState({ isAvailable: true});
         }
     }
 
@@ -237,79 +162,67 @@ export default class Station extends React.Component {
 
     render() {
         return (
+            <div>
+                <GridContainer>
+                    <GridItem xs={12} sm={12} md={12}>
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={12}>
+                        <div className="form_radio_btn">
+                            <input onClick={this.handleFilter} id="radio-1" type="radio" name="radio" value="1"/>
+                            <label htmlFor="radio-1">All</label>
+                        </div>
+                        <div className="form_radio_btn">
+                            <input onClick={this.handleFilter} id="radio-2" type="radio" name="radio" value="2"/>
+                            <label htmlFor="radio-2">Occupied</label>
+                        </div>
+                        <div className="form_radio_btn">
+                            <input  onClick={this.handleFilter} id="radio-3" type="radio" name="radio" value="3"/>
+                            <label htmlFor="radio-3">Available</label>
+                        </div>
+                        <div className="form_radio_btn">
+                            <input onClick={this.handleFilter} id="radio-4" type="radio" name="radio" value="4" />
+                            <label htmlFor="radio-4">Unavailable</label>
+                        </div>
+                        <div className="form_radio_btn">
+                            <input  onClick={this.handleFilter} id="radio-5" type="radio" name="radio" value="5"/>
+                            <label htmlFor="radio-5">Online</label>
+                        </div>
+                        <div className="form_radio_btn">
+                            <input  onClick={this.handleFilter} id="radio-6" type="radio" name="radio" value="6"/>
+                            <label htmlFor="radio-6">Offline</label>
+                        </div>
+                    </GridItem>
+                </GridContainer>
+                <p className="stCountStr">
+                    Station&nbsp;-&nbsp;&nbsp;stationQty: {this.state.stationQty}&nbsp;
+                    slotQty: {this.state.slotQty}&nbsp;
+                    availableQty: {this.state.availableQty}&nbsp;
+                    occupiedQty: {this.state.occupiedQty}&nbsp;
+                    outOfWork: {this.state.outOfWork}&nbsp;
+                </p>
+
             <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
                     <Card>
-                        <CardHeader color="primary">
-                            <h4 className="stCardTitleWhite">Stations</h4>
-                            <p className="stCardCategoryWhite">
-                                Information&nbsp;-&nbsp;&nbsp;stationQty: {this.state.stationQty}&nbsp;
-                                slotQty: {this.state.slotQty}&nbsp;
-                                availableQty: {this.state.availableQty}&nbsp;
-                                occupiedQty: {this.state.occupiedQty}&nbsp;
-                                outOfWork: {this.state.outOfWork}&nbsp;
-                            </p>
+                        <CardHeader color="success" stats icon>
+                            <CardIcon color="success">
+                                <StationIcon />
+                            </CardIcon>
+                            <h5 className="stHeadTable">
+                                Station ID: 000247&nbsp;&nbsp;
+                                Count of slots: 5&nbsp;&nbsp;
+                                Location: Tel Aviv
+                            </h5>
                         </CardHeader>
-                        <div>
-
-                            <div className="form_radio_btn">
-                                <input onClick={this.handleFilter} id="radio-1" type="radio" name="radio" value="1"/>
-                                    <label htmlFor="radio-1">All</label>
-                            </div>
-                            <div className="form_radio_btn">
-                                <input onClick={this.handleFilter} id="radio-2" type="radio" name="radio" value="2"/>
-                                    <label htmlFor="radio-2">Occupied</label>
-                            </div>
-                            <div className="form_radio_btn">
-                                <input  onClick={this.handleFilter} id="radio-3" type="radio" name="radio" value="3"/>
-                                    <label htmlFor="radio-3">Radio button 3</label>
-                            </div>
-                            <div className="form_radio_btn">
-                                <input onClick={this.handleFilter} id="radio-4" type="radio" name="radio" value="4" />
-                                    <label htmlFor="radio-4">Disabled</label>
-                            </div>
-                            <div className="form_radio_btn">
-                                <input  onClick={this.handleFilter} id="radio-5" type="radio" name="radio" value="5"/>
-                                <label htmlFor="radio-5">Radio button 3</label>
-                            </div>
-                            <div className="form_radio_btn">
-                                <input  onClick={this.handleFilter} id="radio-6" type="radio" name="radio" value="6"/>
-                                <label htmlFor="radio-6">Radio button 3</label>
-                            </div>
-                        </div>
                         <CardBody>
-                            <TableContainer component={Paper}>
-
-                                {/*<ButtonGroup variant="contained" color="info" aria-label="contained primary button group">*/}
-                                {/*    <Button className={this.isActive ? "actfilterButton" : "filterButton" }>All</Button>*/}
-                                {/*    <Button id ="Occupied" >Available</Button>*/}
-                                {/*    <Button>Occupied</Button>*/}
-                                {/*    <Button>Unavailable</Button>*/}
-                                {/*    <Button>Online</Button>*/}
-                                {/*    <Button>Offline</Button>*/}
-                                {/*</ButtonGroup>*/}
-                                <Table aria-label="collapsible table">
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell/>
-                                            <TableCell>№</TableCell>
-                                            <TableCell align="center">Station ID</TableCell>
-                                            <TableCell align="center">Status</TableCell>
-                                            <TableCell align="center">Count of slots</TableCell>
-                                            <TableCell align="center">Location</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {this.state.rows.map((row) => (
-                                            <Row key={row.n} row={row}/>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
+                            <div style={{ height: this.state.htable, width: '100%' }}>
+                                <DataGrid rows={this.state.rows} columns={this.state.columns} pageSize={5} checkboxSelection />
+                            </div>
                         </CardBody>
                     </Card>
                 </GridItem>
             </GridContainer>
+            </div>
         );
     }
 }
