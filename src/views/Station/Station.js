@@ -1,19 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import GridItem from "../../components/Grid/GridItem";
 import Card from "../../components/Card/Card";
 import CardHeader from "../../components/Card/CardHeader";
@@ -27,16 +12,15 @@ import {
     MenuItem,
     Radio,
     RadioGroup,
-    Select
+    Select, TextField
 } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import configData from "../../config.json"
 import './station.css';
 import CardIcon from "../../components/Card/CardIcon";
 import StationIcon from "@material-ui/icons/EvStation";
-import LanguageIcon from "@material-ui/icons/Language";
 import {DataGrid} from "@material-ui/data-grid";
 import FormControl from "@material-ui/core/FormControl";
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 export default class Station extends React.Component {
     constructor(props) {
@@ -64,7 +48,17 @@ export default class Station extends React.Component {
                 { field: 'slot_power', headerName: 'Charge level, %', flex: 0.3},
                 { field: 'slot_info', headerName: 'Status',type: 'number', flex: 0.3 },
             ],
-            htable: 400
+            htable: 400,
+
+            stCountry: [
+                { title: 'Izrael'},
+                // { title: 'Italy'}
+            ],
+            stCity: [
+                { title: 'Tel Aviv'},
+                { title: 'Tel Aviv'}
+            ]
+
 
         };
 
@@ -181,43 +175,27 @@ export default class Station extends React.Component {
                 <GridContainer>
                     <div className="stDropdown">
                         <GridItem xs={12} sm={12} md={12}>
-                            <FormControl >
-                                <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-                                    Country
-                                </InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-placeholder-label-label"
-                                    id="demo-simple-select-placeholder-label"
-                                    // value={age}
-                                    // onChange={handleChange}
-                                    displayEmpty
-                                    // className={classes.selectEmpty}
-                                    defaultValue={1}
-                                >
-                                    <MenuItem value={1}>Izrael</MenuItem>
-                                </Select>
-                                <FormHelperText>Select country</FormHelperText>
-                            </FormControl>
-                            <FormControl className="stDropdown_city">
-                                <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-                                    City
-                                </InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-placeholder-label-label"
-                                    id="demo-simple-select-placeholder-label"
-                                    // value={age}
-                                    // onChange={handleChange}
-                                    displayEmpty
-                                    // className={classes.selectEmpty}
-                                    defaultValue={1}
-                                >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    <MenuItem value={1}>Tell Aviva</MenuItem>
-                                  </Select>
-                                <FormHelperText>Select city</FormHelperText>
-                            </FormControl>
+                            <Autocomplete
+                                className="stDropdown"
+                                id="combo-box-demo"
+                                options={this.state.stCountry}
+                                defaultValue={this.state.stCountry[0]}
+                                getOptionLabel={(option) => option.title}
+                                style={{ width: 200 }}
+                                renderInput={(params) =>
+                                    <TextField {...params} label="Country" variant="outlined" />}
+                            />
+                            <Autocomplete
+                                className="stDropdown"
+                            id="combo-box-demo"
+                            options={this.state.stCity}
+                            defaultValue={this.state.stCity[0]}
+                            getOptionLabel={(option) => option.title}
+                            style={{ width: 200, maxHeight: 20 }}
+                            renderInput={(params) =>
+                            <TextField {...params} label="City" variant="outlined" />}
+                            />
+
                         </GridItem>
                     </div>
                     <div className="stDropdown-btn">
