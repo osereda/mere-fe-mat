@@ -12,6 +12,7 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 import bgImage from "assets/img/sidebar-2.jpg";
 import logoPM from "assets/img/logoPM.png";
 import logoZ from "assets/img/logoZ.svg";
+import avatarImg from "../assets/img/faces/daniel.jpeg";
 
 let ps;
 
@@ -93,12 +94,14 @@ export default function Admin({ ...rest }) {
     if(localStorage.getItem("org") === 'ZMove') return logoZ;
   }
 
+
   return (
     <div className={classes.wrapper}>
       <Sidebar
         routes={routes}
         logoText={localStorage.getItem("user")}
         logo={getLogo()}
+        avatarImg = {avatarImg}
         image={image}
         handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen}

@@ -21,7 +21,7 @@ export default function Sidebar(props) {
   function activeRoute(routeName) {
     return window.location.href.indexOf(routeName) > -1 ? true : false;
   }
-  const { color, logo, image, logoText, routes } = props;
+  const { color, logo, image, logoText, avatarImg, routes } = props;
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
@@ -96,7 +96,8 @@ export default function Sidebar(props) {
                 className={classes.avatarLink}
             >
             <div style={{ display: "flex" }}>
-                <Avatar>{(localStorage.getItem("user").slice(0, 2))} </Avatar>
+                {/*{(localStorage.getItem("user").slice(0, 2))}*/}
+                <Avatar alt = "Daniel" src={avatarImg}/>
                 <div style={{ marginTop: "5px", marginLeft: "15px" }}>
                     {logoText}
                 </div>
