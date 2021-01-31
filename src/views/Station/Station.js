@@ -55,12 +55,12 @@ export default class Station extends React.Component {
             filterCountry: 'Israel',
             filterCiti: 'Tel Aviv',
             stDropdownCountry: [
-                { title: 'Israel'},
+                { title: 'All'},
                 // { title: 'UK'}
-                // { title: 'Italy'}
+                { title: 'Israel'}
             ],
             stDropdownCity: [
-                { title: 'Tel Aviv'},
+                { title: 'All'},
                 { title: 'Tel Aviv'}
             ]
 
@@ -103,12 +103,12 @@ export default class Station extends React.Component {
             item.st_counts_slot = item.id_slots.length;
             item.st_status = "online";
             countSlots = countSlots + item.id_slots.length;
-            this.state.stDropdownCountry.forEach(country => {
-                if(item.location.split(',')[0] !== country.title || country.title === null) {
-                    tmpStDropdownCountry.push({title: item.location.split(',')[0]});
-                    this.setState({ stDropdownCountry: tmpStDropdownCountry});
-                }
-            });
+            // this.state.stDropdownCountry.forEach(country => {
+            //     if(item.location.split(',')[0] !== country.title) {
+            //         tmpStDropdownCountry.push({title: item.location.split(',')[0]});
+            //         this.setState({ stDropdownCountry: tmpStDropdownCountry});
+            //     }
+            // });
             this.setState({ stationQty: i});
             item.arr_slots.forEach((sl, i) => {
                 sl.id = i;
