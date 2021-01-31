@@ -59,9 +59,9 @@
 
 .stHeadTable {
     color: #2e2e2e;
-    text-align: center !important;
-    margin-top: 20px !important;
-    padding-top: 20px;
+    text-align: left !important;
+    margin-top: 10px !important;
+    padding-top: 10px;
     min-height: auto !important;
     font-weight: 300;
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;

@@ -34,6 +34,7 @@ export default class Station extends React.Component {
             availableQty : 0,
             occupiedQty : 0,
             outOfWork : 0,
+            location : '',
 
             isAll: true,
             isAvailable: false,
@@ -121,6 +122,7 @@ export default class Station extends React.Component {
         this.setState({ slotQty: countSlots});
         this.setState({ availableQty: availableSlot});
         this.setState({ occupiedQty: occupiedSlot});
+        this.setState({ location: data[0].location});
         this.filterStation();
     }
 
@@ -200,8 +202,6 @@ export default class Station extends React.Component {
                     </div>
                     <div className="stDropdown-btn">
                         <GridItem xs={12} sm={12} md={12}>
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={12}>
                             <div className="form_radio_btn_start">
                                 <input onClick={this.handleFilter} id="radio-1" type="radio" name="radio" value="1"/>
                                 <label htmlFor="radio-1">All</label>
@@ -240,15 +240,16 @@ export default class Station extends React.Component {
             <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
                     <Card>
-                        <CardHeader className="stHeadTableIcon" color="success" stats icon>
+                        <CardHeader className="stHeadTableIcon" color="info" stats icon>
                             <CardIcon color="success">
                                 <StationIcon />
                             </CardIcon>
-                            <h4 className="stHeadTable">
-                                Station ID: 000247&nbsp;&nbsp;
-                                Count of slots: 5&nbsp;&nbsp;
-                                Location: Tel Aviv
-                            </h4>
+                            <h6 className="stHeadTable">
+                                Station ID: &nbsp;&nbsp;000247&nbsp;&nbsp;
+                            </h6>
+                            <h6 className="stHeadTable">
+                                Location: &nbsp;&nbsp;{this.state.location}
+                            </h6>
                         </CardHeader>
                         <CardBody>
                             <div style={{ height: this.state.htable, width: '100%' }}>
