@@ -52,13 +52,14 @@ export default class Station extends React.Component {
             ],
             htable: 400,
 
-            filterCountry: 'Izrael',
+            filterCountry: 'Israel',
             filterCiti: 'Tel Aviv',
-            stCountry: [
-                { title: 'Izrael'},
+            stDropdownCountry: [
+                { title: 'Israel'},
+                // { title: 'UK'}
                 // { title: 'Italy'}
             ],
-            stCity: [
+            stDropdownCity: [
                 { title: 'Tel Aviv'},
                 { title: 'Tel Aviv'}
             ]
@@ -96,11 +97,18 @@ export default class Station extends React.Component {
         let countSlots = 0;
         let availableSlot = 0;
         let occupiedSlot = 0;
+        let tmpStDropdownCountry =[];
         data.forEach((item, i) => {
             item.n = ++i;
             item.st_counts_slot = item.id_slots.length;
             item.st_status = "online";
             countSlots = countSlots + item.id_slots.length;
+            this.state.stDropdownCountry.forEach(country => {
+                if(item.location.split(',')[0] !== country.title || country.title === null) {
+                    tmpStDropdownCountry.push({title: item.location.split(',')[0]});
+                    this.setState({ stDropdownCountry: tmpStDropdownCountry});
+                }
+            });
             this.setState({ stationQty: i});
             item.arr_slots.forEach((sl, i) => {
                 sl.id = i;
@@ -125,26 +133,31 @@ export default class Station extends React.Component {
         this.setState({ slotQty: countSlots});
         this.setState({ availableQty: availableSlot});
         this.setState({ occupiedQty: occupiedSlot});
+        // this.setState({ stDropdownCountry: tmpStDropdownCountry});
         this.filterStation();
     }
 
     filterStation() {
         let filteredArr = [];
-        if(this.state.isAll !== true) {
+        if(true) {
             filteredArr = this.state.f_rows.filter(item => {
-                if (item.arr_slots.length > 0)
-                    item.arr_slots = item.arr_slots.filter(sl => {
-                    if (sl.slot_status === "Occupied" && document.getElementById("radio-2").checked) {
-                        return sl;
+                if(item.location.split(',')[0] === this.state.filterCountry) {
+                    if (this.state.isAll !== true && item.arr_slots.length > 0) {
+                        item.arr_slots = item.arr_slots.filter(sl => {
+                            if (sl.slot_status === "Occupied" && document.getElementById("radio-2").checked) {
+                                return sl;
+                            }
+                            if (sl.slot_status === "Available" && document.getElementById("radio-3").checked) {
+                                return sl;
+                            }
+                            if (sl.slot_info === "Online" && document.getElementById("radio-5").checked) {
+                                return sl;
+                            }
+                        });
                     }
-                    if (sl.slot_status === "Available" && document.getElementById("radio-3").checked) {
-                        return sl;
-                    }
-                    if (sl.slot_info === "Online" && document.getElementById("radio-5").checked) {
-                        return sl;
-                    }
-                });
-                return item;
+                    return item;
+                }
+
             })
             this.setState({rows: filteredArr});
         }
@@ -171,7 +184,8 @@ export default class Station extends React.Component {
     }
 
     handleCountryChange = (event) => {
-        console.log(event)
+        this.setState({filterCountry: event.title});
+        console.log(event.title);
     };
 
     render() {
@@ -183,8 +197,8 @@ export default class Station extends React.Component {
                             <Autocomplete
                                 className="stDropdown"
                                 id="combo-box-demo"
-                                options={this.state.stCountry}
-                                defaultValue={this.state.stCountry[0]}
+                                options={this.state.stDropdownCountry}
+                                defaultValue={this.state.stDropdownCountry[0]}
                                 getOptionLabel={(option) => option.title}
                                 onChange={(event, value) => this.handleCountryChange(value)}
                                 style={{ width: 130 }}
@@ -195,8 +209,8 @@ export default class Station extends React.Component {
                                 className="stDropdown"
                                 id="combo-box-demo"
                                 onChange={(event, value) => console.log(value)}
-                                options={this.state.stCity}
-                                defaultValue={this.state.stCity[0]}
+                                options={this.state.stDropdownCity}
+                                defaultValue={this.state.stDropdownCity[0]}
                                 getOptionLabel={(option) => option.title}
                                 style={{ width: 130, maxHeight: 20 }}
                                 renderInput={(params) =>
