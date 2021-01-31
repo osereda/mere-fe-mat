@@ -1,8 +1,16 @@
-.stDropdown {
-    display: inline-block;
-    min-height: 20px !important; ;
-    right: 0;
-    margin-right: 5px;
+@media (max-width: 70px) {
+    .stDropdown {
+        display: grid;
+    }
+}
+
+@media (max-width: 2400px) {
+    .stDropdown {
+        display: inline-block;
+        min-height: 20px !important;;
+        right: 0;
+        margin-right: 5px;
+    }
 }
 .stDropdown input {
     margin: 0 !important;

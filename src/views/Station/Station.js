@@ -181,7 +181,7 @@ export default class Station extends React.Component {
                                 options={this.state.stCountry}
                                 defaultValue={this.state.stCountry[0]}
                                 getOptionLabel={(option) => option.title}
-                                style={{ width: 200 }}
+                                style={{ width: 130 }}
                                 renderInput={(params) =>
                                     <TextField {...params} label="Country" variant="outlined" />}
                             />
@@ -191,7 +191,7 @@ export default class Station extends React.Component {
                             options={this.state.stCity}
                             defaultValue={this.state.stCity[0]}
                             getOptionLabel={(option) => option.title}
-                            style={{ width: 200, maxHeight: 20 }}
+                            style={{ width: 130, maxHeight: 20 }}
                             renderInput={(params) =>
                             <TextField {...params} label="City" variant="outlined" />}
                             />
