@@ -27,6 +27,7 @@ export default class Station extends React.Component {
         super(props);
         this.state = {
             count: 0,
+            stRows:[],
             rows:[],
             f_rows:[],
             stationQty: 0,
@@ -51,6 +52,8 @@ export default class Station extends React.Component {
             ],
             htable: 400,
 
+            filterCountry: 'Izrael',
+            filterCiti: 'Tel Aviv',
             stCountry: [
                 { title: 'Izrael'},
                 // { title: 'Italy'}
@@ -122,17 +125,15 @@ export default class Station extends React.Component {
         this.setState({ slotQty: countSlots});
         this.setState({ availableQty: availableSlot});
         this.setState({ occupiedQty: occupiedSlot});
-        this.setState({ location: data[0].location});
         this.filterStation();
     }
 
     filterStation() {
-        let tmpArr = [];
-        let arrOfSlots = [];
+        let filteredArr = [];
         if(this.state.isAll !== true) {
-            tmpArr = this.state.f_rows.forEach(item => {
+            filteredArr = this.state.f_rows.filter(item => {
                 if (item.arr_slots.length > 0)
-                    arrOfSlots = item.arr_slots.filter(sl => {
+                    item.arr_slots = item.arr_slots.filter(sl => {
                     if (sl.slot_status === "Occupied" && document.getElementById("radio-2").checked) {
                         return sl;
                     }
@@ -145,9 +146,11 @@ export default class Station extends React.Component {
                 });
                 return item;
             })
-            this.setState({ rows: arrOfSlots});
-        } else
-        this.setState({ rows: this.state.f_rows[0].arr_slots});
+            this.setState({rows: filteredArr});
+        }
+        else {
+            this.setState({rows: this.state.f_rows});
+        }
     }
 
     handleFilter() {
@@ -167,8 +170,8 @@ export default class Station extends React.Component {
         this.GetStationData();
     }
 
-    handleChange = (event) => {
-        //setAge(event.target.value);
+    handleCountryChange = (event) => {
+        console.log(event)
     };
 
     render() {
@@ -183,19 +186,21 @@ export default class Station extends React.Component {
                                 options={this.state.stCountry}
                                 defaultValue={this.state.stCountry[0]}
                                 getOptionLabel={(option) => option.title}
+                                onChange={(event, value) => this.handleCountryChange(value)}
                                 style={{ width: 130 }}
                                 renderInput={(params) =>
-                                    <TextField {...params} label="Country" variant="outlined" />}
+                                <TextField {...params} label="Country" variant="outlined" />}
                             />
                             <Autocomplete
                                 className="stDropdown"
-                            id="combo-box-demo"
-                            options={this.state.stCity}
-                            defaultValue={this.state.stCity[0]}
-                            getOptionLabel={(option) => option.title}
-                            style={{ width: 130, maxHeight: 20 }}
-                            renderInput={(params) =>
-                            <TextField {...params} label="City" variant="outlined" />}
+                                id="combo-box-demo"
+                                onChange={(event, value) => console.log(value)}
+                                options={this.state.stCity}
+                                defaultValue={this.state.stCity[0]}
+                                getOptionLabel={(option) => option.title}
+                                style={{ width: 130, maxHeight: 20 }}
+                                renderInput={(params) =>
+                                <TextField {...params} label="City" variant="outlined" />}
                             />
 
                         </GridItem>
@@ -239,24 +244,46 @@ export default class Station extends React.Component {
 
             <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
-                    <Card>
-                        <CardHeader className="stHeadTableIcon" color="info" stats icon>
-                            <CardIcon color="success">
-                                <StationIcon />
-                            </CardIcon>
-                            <h6 className="stHeadTable">
-                                Station ID: &nbsp;&nbsp;000247&nbsp;&nbsp;
-                            </h6>
-                            <h6 className="stHeadTable">
-                                Location: &nbsp;&nbsp;{this.state.location}
-                            </h6>
-                        </CardHeader>
-                        <CardBody>
-                            <div style={{ height: this.state.htable, width: '100%' }}>
-                                <DataGrid rows={this.state.rows} columns={this.state.columns} pageSize={5} checkboxSelection />
-                            </div>
-                        </CardBody>
-                    </Card>
+                    {this.state.rows.map(item => {
+                        return (
+                            <Card>
+                                <CardHeader className="stHeadTableIcon" color="info" stats icon>
+                                    <CardIcon color="success">
+                                        <StationIcon />
+                                    </CardIcon>
+                                    <h6 className="stHeadTable">
+                                        Station ID: &nbsp;&nbsp;000247&nbsp;&nbsp;
+                                    </h6>
+                                    <h6 className="stHeadTable">
+                                        Location: &nbsp;&nbsp;{item.location}
+                                    </h6>
+                                </CardHeader>
+                                <CardBody>
+                                    <div style={{ height: this.state.htable, width: '100%' }}>
+                                        <DataGrid rows={item.arr_slots} columns={this.state.columns} pageSize={5} checkboxSelection />
+                                    </div>
+                                </CardBody>
+                            </Card>
+                        )
+                    })}
+                    {/*<Card>*/}
+                    {/*    <CardHeader className="stHeadTableIcon" color="info" stats icon>*/}
+                    {/*        <CardIcon color="success">*/}
+                    {/*            <StationIcon />*/}
+                    {/*        </CardIcon>*/}
+                    {/*        <h6 className="stHeadTable">*/}
+                    {/*            Station ID: &nbsp;&nbsp;000247&nbsp;&nbsp;*/}
+                    {/*        </h6>*/}
+                    {/*        <h6 className="stHeadTable">*/}
+                    {/*            Location: &nbsp;&nbsp;{this.state.location}*/}
+                    {/*        </h6>*/}
+                    {/*    </CardHeader>*/}
+                    {/*    <CardBody>*/}
+                    {/*        <div style={{ height: this.state.htable, width: '100%' }}>*/}
+                    {/*            <DataGrid rows={this.state.rows} columns={this.state.columns} pageSize={5} checkboxSelection />*/}
+                    {/*        </div>*/}
+                    {/*    </CardBody>*/}
+                    {/*</Card>*/}
                 </GridItem>
             </GridContainer>
             </div>
