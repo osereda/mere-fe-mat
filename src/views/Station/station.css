@@ -1,27 +1,19 @@
-.tableHeader {
-    color: green;
+.stDropdown {
+    display: inline-block;
+    right: 0;
 }
 
-.tableBody {
-    background-color: lightblue;
+.stDropdown-btn {
+    display: inline-block;
+    right: 0;
+    position: absolute;
+    margin-top:20px;
+    margin-right: 18px;
 }
 
-.addTableBody {
-    background-color: #eeeeee;
+.stDropdown_city {
+    margin-left: 15px !important;
 }
-
-.filterButton {
-    background-color: white !important;
-}
-
-.actfilterButton {
-    background-color: red !important;
-}
-
-.filterButton:active  {
-    background-color: red !important;
-}
-
 
 .stCardTitleWhite {
     color: white;
@@ -47,6 +39,10 @@
     margin-left: 20px;
 }
 
+.stHeadTableIcon{
+    margin-left: 20px !important;
+}
+
 .stHeadTable {
     color: #2e2e2e;
     text-align: center !important;
@@ -70,35 +66,106 @@
 }
 
 /**/
+.form_radio_btn_start
+{
+    display: inline-block;
+    margin-right: 0px;
+}
+.form_radio_btn_end
+{
+    display: inline-block;
+    margin-right: 0px;
+}
+
 .form_radio_btn {
     display: inline-block;
     margin-right: 0px;
+}
+
+.form_radio_btn_start input[type=radio]
+{
+    display: none;
+}
+.form_radio_btn_end input[type=radio]
+{
+    display: none;
 }
 .form_radio_btn input[type=radio] {
     display: none;
 }
 .form_radio_btn label {
+    background-color: #8e24aa;
     display: inline-block;
     cursor: pointer;
     padding: 0px 15px;
     line-height: 34px;
-    border: 1px solid #999;
+    border-left: 1px solid #999;
     border-radius: 0px;
     user-select: none;
 }
 
+.form_radio_btn_end label {
+    background-color: #8e24aa;
+    display: inline-block;
+    cursor: pointer;
+    padding: 0px 15px;
+    line-height: 34px;
+    border-left: 1px solid #999;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    user-select: none;
+}
+
+.form_radio_btn_start label {
+    background-color: #8e24aa;
+    display: inline-block;
+    cursor: pointer;
+    padding: 0px 15px;
+    line-height: 34px;
+
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    user-select: none;
+}
+
 /* Checked */
+.form_radio_btn_start input[type=radio]:checked + label
+{
+    background: #ffe0a6;
+    color: #8e24aa;
+}
+.form_radio_btn_end input[type=radio]:checked + label
+{
+    background: #ffe0a6;
+    color: #8e24aa;
+}
 .form_radio_btn input[type=radio]:checked + label {
     background: #ffe0a6;
+    color: #8e24aa;
 }
 
 /* Hover */
 .form_radio_btn label:hover {
-    color: #666;
+    color: #ffffff;
+}
+.form_radio_btn_end label:hover {
+    color: #ffffff;
+}
+.form_radio_btn_start label:hover {
+    color: #ffffff;
 }
 
 /* Disabled */
 .form_radio_btn input[type=radio]:disabled + label {
     background: #efefef;
     color: #666;
+}
+
+.form_radio_btn_end input[type=radio]:disabled + label {
+    background: #efefef;
+    color: #8e24aa;
+}
+.form_radio_btn_start input[type=radio]:disabled + label {
+    background: #efefef;
+    color: #8e24aa;
 }

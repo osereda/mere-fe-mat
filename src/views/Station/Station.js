@@ -19,7 +19,16 @@ import Card from "../../components/Card/Card";
 import CardHeader from "../../components/Card/CardHeader";
 import CardBody from "../../components/Card/CardBody";
 import GridContainer from "../../components/Grid/GridContainer";
-import {ButtonGroup, FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
+import {
+    ButtonGroup,
+    FormControlLabel,
+    FormHelperText,
+    InputLabel,
+    MenuItem,
+    Radio,
+    RadioGroup,
+    Select
+} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import configData from "../../config.json"
 import './station.css';
@@ -27,6 +36,7 @@ import CardIcon from "../../components/Card/CardIcon";
 import StationIcon from "@material-ui/icons/EvStation";
 import LanguageIcon from "@material-ui/icons/Language";
 import {DataGrid} from "@material-ui/data-grid";
+import FormControl from "@material-ui/core/FormControl";
 
 export default class Station extends React.Component {
     constructor(props) {
@@ -151,7 +161,8 @@ export default class Station extends React.Component {
         if(document.getElementById("radio-2").checked ||
             document.getElementById("radio-3").checked ||
             document.getElementById("radio-4").checked ||
-            document.getElementById("radio-5").checked ){
+            document.getElementById("radio-5").checked ||
+            document.getElementById("radio-6").checked ){
             this.setState({ isAll: false});
         }
     }
@@ -160,38 +171,85 @@ export default class Station extends React.Component {
         this.GetStationData();
     }
 
+    handleChange = (event) => {
+        //setAge(event.target.value);
+    };
+
     render() {
         return (
             <div>
                 <GridContainer>
-                    <GridItem xs={12} sm={12} md={12}>
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={12}>
-                        <div className="form_radio_btn">
-                            <input onClick={this.handleFilter} id="radio-1" type="radio" name="radio" value="1"/>
-                            <label htmlFor="radio-1">All</label>
-                        </div>
-                        <div className="form_radio_btn">
-                            <input onClick={this.handleFilter} id="radio-2" type="radio" name="radio" value="2"/>
-                            <label htmlFor="radio-2">Occupied</label>
-                        </div>
-                        <div className="form_radio_btn">
-                            <input  onClick={this.handleFilter} id="radio-3" type="radio" name="radio" value="3"/>
-                            <label htmlFor="radio-3">Available</label>
-                        </div>
-                        <div className="form_radio_btn">
-                            <input onClick={this.handleFilter} id="radio-4" type="radio" name="radio" value="4" />
-                            <label htmlFor="radio-4">Unavailable</label>
-                        </div>
-                        <div className="form_radio_btn">
-                            <input  onClick={this.handleFilter} id="radio-5" type="radio" name="radio" value="5"/>
-                            <label htmlFor="radio-5">Online</label>
-                        </div>
-                        <div className="form_radio_btn">
-                            <input  onClick={this.handleFilter} id="radio-6" type="radio" name="radio" value="6"/>
-                            <label htmlFor="radio-6">Offline</label>
-                        </div>
-                    </GridItem>
+                    <div className="stDropdown">
+                        <GridItem xs={12} sm={12} md={12}>
+                            <FormControl >
+                                <InputLabel shrink id="demo-simple-select-placeholder-label-label">
+                                    Country
+                                </InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-placeholder-label-label"
+                                    id="demo-simple-select-placeholder-label"
+                                    // value={age}
+                                    // onChange={handleChange}
+                                    displayEmpty
+                                    // className={classes.selectEmpty}
+                                    defaultValue={1}
+                                >
+                                    <MenuItem value={1}>Izrael</MenuItem>
+                                </Select>
+                                <FormHelperText>Select country</FormHelperText>
+                            </FormControl>
+                            <FormControl className="stDropdown_city">
+                                <InputLabel shrink id="demo-simple-select-placeholder-label-label">
+                                    City
+                                </InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-placeholder-label-label"
+                                    id="demo-simple-select-placeholder-label"
+                                    // value={age}
+                                    // onChange={handleChange}
+                                    displayEmpty
+                                    // className={classes.selectEmpty}
+                                    defaultValue={1}
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={1}>Tell Aviva</MenuItem>
+                                  </Select>
+                                <FormHelperText>Select city</FormHelperText>
+                            </FormControl>
+                        </GridItem>
+                    </div>
+                    <div className="stDropdown-btn">
+                        <GridItem xs={12} sm={12} md={12}>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={12}>
+                            <div className="form_radio_btn_start">
+                                <input onClick={this.handleFilter} id="radio-1" type="radio" name="radio" value="1"/>
+                                <label htmlFor="radio-1">All</label>
+                            </div>
+                            <div className="form_radio_btn">
+                                <input onClick={this.handleFilter} id="radio-2" type="radio" name="radio" value="2"/>
+                                <label htmlFor="radio-2">Occupied</label>
+                            </div>
+                            <div className="form_radio_btn">
+                                <input  onClick={this.handleFilter} id="radio-3" type="radio" name="radio" value="3"/>
+                                <label htmlFor="radio-3">Available</label>
+                            </div>
+                            <div className="form_radio_btn">
+                                <input onClick={this.handleFilter} id="radio-4" type="radio" name="radio" value="4" />
+                                <label htmlFor="radio-4">Unavailable</label>
+                            </div>
+                            <div className="form_radio_btn">
+                                <input  onClick={this.handleFilter} id="radio-5" type="radio" name="radio" value="5"/>
+                                <label htmlFor="radio-5">Online</label>
+                            </div>
+                            <div className="form_radio_btn_end">
+                                <input  onClick={this.handleFilter} id="radio-6" type="radio" name="radio" value="6"/>
+                                <label htmlFor="radio-6">Offline</label>
+                            </div>
+                        </GridItem>
+                    </div>
                 </GridContainer>
                 <p className="stCountStr">
                     Station&nbsp;-&nbsp;&nbsp;stationQty: {this.state.stationQty}&nbsp;
@@ -204,15 +262,15 @@ export default class Station extends React.Component {
             <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
                     <Card>
-                        <CardHeader color="success" stats icon>
+                        <CardHeader className="stHeadTableIcon" color="success" stats icon>
                             <CardIcon color="success">
                                 <StationIcon />
                             </CardIcon>
-                            <h5 className="stHeadTable">
+                            <h4 className="stHeadTable">
                                 Station ID: 000247&nbsp;&nbsp;
                                 Count of slots: 5&nbsp;&nbsp;
                                 Location: Tel Aviv
-                            </h5>
+                            </h4>
                         </CardHeader>
                         <CardBody>
                             <div style={{ height: this.state.htable, width: '100%' }}>
