@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import Icon from "@material-ui/core/Icon";
+// import Icon from "@material-ui/core/Icon";
 import Email from "@material-ui/icons/Email";
 import People from "@material-ui/icons/People";
 import GridContainer from "components/Grid/GridContainer.js";
@@ -16,7 +16,19 @@ import image from "../../assets/img/bg7.jpg";
 import {TextField} from "@material-ui/core";
 import {AccountCircle} from "@material-ui/icons";
 import LockIcon from '@material-ui/icons/Lock';
-import configData from "../../config.json"
+import configData from "../../config.json";
+import TwitterIcon from '@material-ui/icons/Twitter';
+import FacebookIcon from '@material-ui/icons/Facebook';
+// import Icon from '@mdi/react';
+import { mdiGooglePlus } from '@mdi/js';
+import {MDBIcon} from "mdbreact";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+
+import { Icon, InlineIcon } from '@iconify/react';
+import googlePlusCircle from '@iconify-icons/fa/google-plus-circle';
+
 
 const useStyles = makeStyles(styles);
 export default function LoginPage(props) {
@@ -94,7 +106,7 @@ export default function LoginPage(props) {
                                                 color="transparent"
                                                 onClick={e => e.preventDefault()}
                                             >
-                                                <i className={"fab fa-twitter"} />
+                                                <i><TwitterIcon/></i>
                                             </Button>
                                             <Button
                                                 justIcon
@@ -103,7 +115,7 @@ export default function LoginPage(props) {
                                                 color="transparent"
                                                 onClick={e => e.preventDefault()}
                                             >
-                                                <i className={"fab fa-facebook"} />
+                                                <i><FacebookIcon/></i>
                                             </Button>
                                             <Button
                                                 justIcon
@@ -112,7 +124,9 @@ export default function LoginPage(props) {
                                                 color="transparent"
                                                 onClick={e => e.preventDefault()}
                                             >
-                                                <i className={"fab fa-google-plus-g"} />
+
+                                                <i className="fab fa-google-plus"></i>
+                                                <Icon icon={googlePlusCircle} />
                                             </Button>
                                         </div>
                                     </CardHeader>
