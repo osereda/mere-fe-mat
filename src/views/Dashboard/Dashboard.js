@@ -84,12 +84,6 @@ export default function Dashboard() {
 
 
   useEffect(() => {
-    // const fetchData1 = async () => {
-    //   const result = await axios(
-    //       'http://localhost:5000/api/scooter/all',
-    //   );
-    // };
-
 
     fetch(configData.SERVER_URL+'scooter/all')
         .then(response => {

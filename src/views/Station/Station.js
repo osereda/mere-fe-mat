@@ -48,7 +48,7 @@ export default class Station extends React.Component {
                 { field: 'slot_id', headerName: 'ID', flex: 0.3},
                 { field: 'slot_status', headerName: 'Status', flex: 0.3},
                 { field: 'slot_power', headerName: 'Charge level, %', flex: 0.3},
-                { field: 'slot_info', headerName: 'Status',type: 'number', flex: 0.3 },
+                { field: 'slot_info', headerName: 'Status', flex: 0.3 },
             ],
             htable: 400,
 
@@ -184,7 +184,9 @@ export default class Station extends React.Component {
     }
 
     handleCountryChange = (event) => {
-        this.setState({filterCountry: event.title});
+        if(event !== null) {
+            this.setState({filterCountry: event.title});
+        }
         console.log(event.title);
     };
 
