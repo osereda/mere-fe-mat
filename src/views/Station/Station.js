@@ -187,7 +187,6 @@ export default class Station extends React.Component {
         if(event !== null) {
             this.setState({filterCountry: event.title});
         }
-        console.log(event.title);
     };
 
     render() {
@@ -251,11 +250,11 @@ export default class Station extends React.Component {
                     </div>
                 </GridContainer>
                 <p className="stCountStr">
-                    Station&nbsp;-&nbsp;&nbsp;stationQty: {this.state.stationQty}&nbsp;
-                    slotQty: {this.state.slotQty}&nbsp;
-                    availableQty: {this.state.availableQty}&nbsp;
-                    occupiedQty: {this.state.occupiedQty}&nbsp;
-                    outOfWork: {this.state.outOfWork}&nbsp;
+                    Station&nbsp;-&nbsp;&nbsp;Station qty: {this.state.stationQty}&nbsp;
+                    Pad qty: {this.state.slotQty}&nbsp;
+                    Available pads: {this.state.availableQty}&nbsp;
+                    Occupied pads: {this.state.occupiedQty}&nbsp;
+                    Out of work: {this.state.outOfWork}&nbsp;
                 </p>
 
             <GridContainer>

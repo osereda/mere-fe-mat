@@ -51,7 +51,7 @@ export default function UserProfile() {
               <GridContainer>
                 <GridItem xs={12} sm={12} md={5}>
                   <CustomInput
-                    labelText="Company (disabled)"
+                    labelText="Power Mobility"
                     id="company-disabled"
                     formControlProps={{
                       fullWidth: true
@@ -67,6 +67,9 @@ export default function UserProfile() {
                     id="username"
                     formControlProps={{
                       fullWidth: true
+                    }}
+                    inputProps={{
+                      value: "Daniel"
                     }}
                   />
                 </GridItem>
@@ -88,6 +91,9 @@ export default function UserProfile() {
                     formControlProps={{
                       fullWidth: true
                     }}
+                    inputProps={{
+                      value: "Daniel"
+                    }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
@@ -96,6 +102,9 @@ export default function UserProfile() {
                     id="last-name"
                     formControlProps={{
                       fullWidth: true
+                    }}
+                    inputProps={{
+                      value: "Ingber"
                     }}
                   />
                 </GridItem>
@@ -108,6 +117,9 @@ export default function UserProfile() {
                     formControlProps={{
                       fullWidth: true
                     }}
+                    inputProps={{
+                      value: "Tel Aviv"
+                    }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
@@ -116,6 +128,9 @@ export default function UserProfile() {
                     id="country"
                     formControlProps={{
                       fullWidth: true
+                    }}
+                    inputProps={{
+                      value: "Israel"
                     }}
                   />
                 </GridItem>
@@ -133,7 +148,7 @@ export default function UserProfile() {
                 <GridItem xs={12} sm={12} md={12}>
                   <InputLabel style={{ color: "#AAAAAA" }}>About me</InputLabel>
                   <CustomInput
-                    labelText="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
+                    labelText="Description about your company"
                     id="about-me"
                     formControlProps={{
                       fullWidth: true
@@ -147,7 +162,7 @@ export default function UserProfile() {
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <Button color="primary">Update Profile</Button>
+              <Button color="primary" disabled >Update Profile</Button>
             </CardFooter>
           </Card>
         </GridItem>
